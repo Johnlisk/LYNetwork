@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BD74C4B1EFC14B400E4E7EF /* LYNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */; };
 		D4F98929077C77B344FDF533 /* Pods_LYNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */; };
 		E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */; };
 		E0BC6D831EFBA02600B314E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D821EFBA02600B314E9 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkUtils.swift; sourceTree = "<group>"; };
 		5CC6A5E20D16EF95BDE3AC63 /* Pods-LYNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAE47610B22833F90B4CA28 /* Pods-LYNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */,
 				E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */,
 				E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */,
+				1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */,
 				E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */,
 				E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */,
+				1BD74C4B1EFC14B400E4E7EF /* LYNetworkUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +406,7 @@
 				E0BC6D911EFBA02600B314E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -124,6 +124,11 @@ open class LYBaseRequest {
     
   }
   
+  public func clearCompletionHandler() {
+    self.successCompletionHandler = nil
+    self.failureCompletionHandler = nil
+  }
+  
   //  MARK: Subclass Override
   public func requestCompletePreprocessor() {}
   public func requestCompleteFilter() {}

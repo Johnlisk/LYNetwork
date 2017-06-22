@@ -57,24 +57,24 @@ open class LYBaseRequest {
   //  MARK: Properties
   //  =========================================================
   //  MARK: Request and Response Information
-  private(set) var requestTask: URLSessionTask?
-  public var currentRequest: URLRequest? {
+  open internal(set) var requestTask: URLSessionTask?
+  open var currentRequest: URLRequest? {
     get {
       return self.requestTask.currentRequest
     }
   }
-  public var originalRequest: URLRequest? {
+  open var originalRequest: URLRequest? {
     get {
       return self.requestTask.originalRequest
     }
   }
   private(set) var response: HTTPURLResponse
-  public var responseStatusCode: Int {
+  open var responseStatusCode: Int {
     get {
       return self.response.statusCode
     }
   }
-  public var responseHeaders: Dictionary<AnyHashable, Any> {
+  open var responseHeaders: Dictionary<AnyHashable, Any> {
     get {
       return self.response.allHeaderFields
     }
@@ -131,6 +131,7 @@ open class LYBaseRequest {
   public func requestFailedFilter() {}
   public func baseUrl() -> String { return "" }
   public func requestUrl() -> String { return "" }
+  public func buildCustomUrlRequest() -> URLRequest? { return nil }
   public func cdnUrl() -> String { return "" }
   public func requestTimeoutInterval() -> TimeInterval { return 60 }
   public func requestArgument() -> Any? { return nil }

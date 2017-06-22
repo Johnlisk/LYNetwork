@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol LYUrlFilterProtocol: class {
-  func filterUrl(url originalUrl: String,_ request: LYBaseRequest)
+  func filterUrl(url originalUrl: String,_ request: LYBaseRequest) -> String
 }
 
 

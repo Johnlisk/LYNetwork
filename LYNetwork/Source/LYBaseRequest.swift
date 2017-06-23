@@ -45,9 +45,9 @@ public protocol LYRequestDelegate: class {
 }
 
 public protocol LYRequestAccessory: class {
-  func requestWillStart(_ request: Any)
-  func requestWillStop(_ request: Any)
-  func requestDidStop(_ request: Any)
+  func requestWillStart(_ request: AnyObject)
+  func requestWillStop(_ request: AnyObject)
+  func requestDidStop(_ request: AnyObject)
 }
 
 
@@ -60,30 +60,30 @@ open class LYBaseRequest {
   open internal(set) var requestTask: URLSessionTask?
   open var currentRequest: URLRequest? {
     get {
-      return self.requestTask.currentRequest
+      return self.requestTask?.currentRequest
     }
   }
   open var originalRequest: URLRequest? {
     get {
-      return self.requestTask.originalRequest
+      return self.requestTask?.originalRequest
     }
   }
-  private(set) var response: HTTPURLResponse
+  private(set) var response: HTTPURLResponse?
   open var responseStatusCode: Int {
     get {
-      return self.response.statusCode
+      return (self.response?.statusCode)!
     }
   }
   open var responseHeaders: Dictionary<AnyHashable, Any> {
     get {
-      return self.response.allHeaderFields
+      return (self.response?.allHeaderFields)!
     }
   }
-  private(set) var responseData: Data?
-  private(set) var responseString: String?
-  private(set) var responseObject: Any?
-  private(set) var responseJSONObject: Any?
-  private(set) var error: Error?
+  var responseData: Data?
+  var responseString: String?
+  var responseObject: AnyObject?
+  var responseJSONObject: AnyObject?
+  var error: Error?
   
   var isCancelled: Bool {
     get {
@@ -105,23 +105,27 @@ open class LYBaseRequest {
   
   //  MARK: Request Configuration
   public var tag: Int = 0
-  public var userInfo: Dictionary?
+  public var userInfo: Dictionary<String, Any>?
   public var successCompletionHandler: LYRequestCompletionHandler?
   public var failureCompletionHandler: LYRequestCompletionHandler?
+  public var requestAccessories: [LYRequestAccessory]?
   public weak var delegate: LYRequestDelegate?
-  public var requestPriority: LYRequestPriority?
+  public var requestPriority: LYRequestPriority = .Default
   
   //  MARK: Request Action
   public func start() {
-    
+    LYNetworkAgent.sharedAgent.addRequest(self)
   }
   
   public func stop() {
-    
+    self.delegate = nil
+    LYNetworkAgent.sharedAgent.cancelRequest(self)
   }
   
-  public func startWithCompletionHandler(success successHandler:LYRequestCompletionHandler?, failure: LYRequestCompletionHandler?) {
-    
+  public func startWithCompletionHandler(success successHandler:LYRequestCompletionHandler?, failure failureHandler: LYRequestCompletionHandler?) {
+    self.successCompletionHandler = successHandler
+    self.failureCompletionHandler = failureHandler
+    self.start()
   }
   
   public func clearCompletionHandler() {
@@ -139,15 +143,15 @@ open class LYBaseRequest {
   public func buildCustomUrlRequest() -> URLRequest? { return nil }
   public func cdnUrl() -> String { return "" }
   public func requestTimeoutInterval() -> TimeInterval { return 60 }
-  public func requestArgument() -> Any? { return nil }
+  public func requestArgument() -> AnyObject? { return nil }
   public func requestMethod() -> LYRequestMethod { return .GET }
   public func requestSerializerType() -> LYRequestSerializerType { return .HTTP }
-  public func responseSerializerType() -> LYResponseSerializerType { return .JSON }
+  public func responseSerializerType() -> LYResponseSerializerType { return .HTTP }
   public func requestAuthorizationHeaderFieldArray() -> Array<String>? { return nil }
   public func requestHeaderFieldValueDictionary() -> Dictionary<String, String>? { return nil }
   public func useCDN() -> Bool { return false }
   public func allowsCellularAccess() -> Bool { return true }
-  public func jsonValidator() -> Any? { return nil }
+  public func jsonValidator() -> AnyObject? { return nil }
   public func statusCodeValidator() -> Bool {
     let statusCode: Int = self.responseStatusCode
     return statusCode >= 200 && statusCode <= 299

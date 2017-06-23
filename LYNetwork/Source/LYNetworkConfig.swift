@@ -22,6 +22,14 @@ class LYNetworkConfig {
   public var debugLogEnabled: Bool
   public private(set) var urlFilters: Array<LYUrlFilterProtocol>
   public var sessionConfiguration: URLSessionConfiguration
+  public var requestTimeoutInterval: TimeInterval {
+    get {
+      return self.sessionConfiguration.timeoutIntervalForRequest
+    }
+    set {
+      self.sessionConfiguration.timeoutIntervalForRequest = newValue
+    }
+  }
   
   //  MARK: Initialization
   init() {

@@ -17,6 +17,8 @@
 		E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */; };
 		E0BC6D981EFBC68700B314E9 /* LYNetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */; };
 		E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */; };
+		E0BC6D9C1EFCC37200B314E9 /* LYNetworkLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */; };
+		E0BC6D9F1EFCFF6D00B314E9 /* LYNetworkPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,9 @@
 		E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBaseRequest.swift; sourceTree = "<group>"; };
 		E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkConfig.swift; sourceTree = "<group>"; };
 		E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkAgent.swift; sourceTree = "<group>"; };
+		E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkLock.swift; sourceTree = "<group>"; };
+		E0BC6D9D1EFCE6DF00B314E9 /* LY_Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_Bridging_Header.h; sourceTree = "<group>"; };
+		E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkPrivate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +109,9 @@
 				E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */,
 				E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */,
 				1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */,
+				E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */,
+				E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */,
+				E0BC6D9D1EFCE6DF00B314E9 /* LY_Bridging_Header.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -235,6 +243,8 @@
 			files = (
 				E0BC6D831EFBA02600B314E9 /* ViewController.swift in Sources */,
 				E0BC6D981EFBC68700B314E9 /* LYNetworkConfig.swift in Sources */,
+				E0BC6D9C1EFCC37200B314E9 /* LYNetworkLock.swift in Sources */,
+				E0BC6D9F1EFCFF6D00B314E9 /* LYNetworkPrivate.swift in Sources */,
 				E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */,
 				E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */,
 				E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */,
@@ -369,6 +379,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = LYNetwork/Source/LY_Bridging_Header.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -383,6 +394,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = LYNetwork/Source/LY_Bridging_Header.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

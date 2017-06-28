@@ -50,6 +50,28 @@ public protocol LYRequestAccessory: class {
   func requestDidStop(_ request: AnyObject)
 }
 
+public protocol LYRequestConfiguration: class {
+  func requestCompletePreprocessor()
+  func requestCompleteFilter()
+  func requestFailedPreprocessor()
+  func requestFailedFilter()
+  func baseUrl() -> String
+  func requestUrl() -> String
+  func buildCustomUrlRequest() -> URLRequest?
+  func cdnUrl() -> String
+  func requestTimeoutInterval() -> TimeInterval
+  func requestArgument() -> AnyObject?
+  func requestMethod() -> LYRequestMethod
+  func requestSerializerType() -> LYRequestSerializerType
+  func responseSerializerType() -> LYResponseSerializerType
+  func requestAuthorizationHeaderFieldArray() -> Array<String>?
+  func requestHeaderFieldValueDictionary() -> Dictionary<String, String>?
+  func useCDN() -> Bool
+  func allowsCellularAccess() -> Bool
+  func jsonValidator() -> AnyObject?
+  func statusCodeValidator() -> Bool
+}
+
 
 public typealias LYRequestCompletionHandler = (LYBaseRequest)->(Void)
 
@@ -133,7 +155,11 @@ open class LYBaseRequest {
     self.failureCompletionHandler = nil
   }
   
-  //  MARK: Subclass Override
+  // MARK: Description
+  
+}
+
+extension LYBaseRequest: LYRequestConfiguration {
   public func requestCompletePreprocessor() {}
   public func requestCompleteFilter() {}
   public func requestFailedPreprocessor() {}
@@ -156,9 +182,5 @@ open class LYBaseRequest {
     let statusCode: Int = self.responseStatusCode
     return statusCode >= 200 && statusCode <= 299
   }
-  
-  // MARK: Description
-  
-  
 }
 

@@ -34,3 +34,30 @@ extension LYBaseRequest {
     }
   }
 }
+
+
+extension LYBatchRequest {
+  public func toggleAccessoriesWillStartCallBack() {
+    if self.requestAccessories != nil {
+      self.requestAccessories!.forEach({ (accessory) in
+        accessory.requestWillStart(self)
+      })
+    }
+  }
+  
+  public func toggleAccessoriesWillStopCallBack() {
+    if self.requestAccessories != nil {
+      self.requestAccessories!.forEach({ (accessory) in
+        accessory.requestWillStop(self)
+      })
+    }
+  }
+  
+  public func toggleAccessoriesDidStopCallBack() {
+    if self.requestAccessories != nil {
+      self.requestAccessories!.forEach({ (accessory) in
+        accessory.requestDidStop(self)
+      })
+    }
+  }
+}

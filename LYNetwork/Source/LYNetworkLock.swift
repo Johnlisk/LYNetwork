@@ -9,38 +9,21 @@
 import Foundation
 import Darwin
 
-/**
- lock method protocol
- */
 public protocol Lockable {
-  /**
-   lock a thread
-   */
   func lock()
 }
 
 public protocol Unlockable {
-  /**
-   unlock a thread
-   */
   func unlock()
 }
 
 public protocol Waitable {
-  /**
-   wait a thread
-   
-   - returns: whether or not to succeed in waiting a thread
-   */
+  /// returns: whether or not to succeed in waiting a thread
   func wait() -> Bool
 }
 
 public protocol SignalSendable {
-  /**
-   send a signal to thread locking/blocking system
-   
-   - returns: whether or not to succeed in awaking a thread
-   */
+  /// whether or not to succeed in awaking a thread
   func signal() -> Bool
 }
 
@@ -57,11 +40,7 @@ public class Mutex {
   /// attribute object pointer
   fileprivate let attribute: UnsafeMutablePointer<pthread_mutexattr_t>
   
-  /**
-   initializer
-   
-   - returns: mutex class instance
-   */
+  // MARK: Initializer
   public init() {
     
     mutex = UnsafeMutablePointer.allocate(capacity: MemoryLayout<pthread_mutex_t>.size)
@@ -75,9 +54,8 @@ public class Mutex {
     
   }
   
-  /**
-   deinitializer
-   */
+  
+  // MARK: Deinitializer
   deinit {
     pthread_cond_destroy(condition);
     pthread_mutexattr_destroy(attribute)
@@ -86,67 +64,26 @@ public class Mutex {
   
 }
 
-/**
- extend Mutex class to Lockable protocol
- */
 extension Mutex : Lockable {
-  
-  /**
-   lock a thread
-   */
   public func lock() {
-    
     pthread_mutex_lock(mutex)
-    
   }
-  
 }
 
-/**
- extend Mutex class to Lockable protocol
- */
 extension Mutex : Unlockable {
-  
-  /**
-   unlock a thread
-   */
   public func unlock() {
-    
     pthread_mutex_unlock(mutex)
-    
   }
-  
 }
 
-/**
- extend Mutex class to Waitable protocol
- */
 extension Mutex : Waitable {
-  /**
-   wait a thread until signal()
-   
-   - returns: whether or not succeed in waiting a thread
-   */
   public func wait() -> Bool {
-    
     return pthread_cond_wait(condition, mutex) == 0
-    
   }
 }
 
-/**
- extend Mutex class to SignalSendable protocol
- */
 extension Mutex : SignalSendable {
-  /**
-   send a signal to the waiting thread
-   
-   - returns: whether or not succeed in sending a signal to a thread
-   */
   public func signal() -> Bool {
-    
     return pthread_cond_signal(condition) == 0
-    
   }
-  
 }

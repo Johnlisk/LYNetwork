@@ -19,16 +19,21 @@ class LYNetworkAgent {
   private var manager: SessionManager
   private var config: LYNetworkConfig
   private var requestsRecord: Dictionary<NSNumber, LYBaseRequest>
-  private var allStatusCodes: IndexSet
   private var processingQueue: DispatchQueue
   private var mutex: Mutex
   
   //  MARK: Initialization
   init() {
-    self.config = LYNetworkConfig()
+    self.config = LYNetworkConfig.sharedConfig
     self.manager = SessionManager.init(configuration: self.config.sessionConfiguration)
+    
+    let requestHTTPHeaders = self.config.requestHTTPHeaders
+    if requestHTTPHeaders != nil && requestHTTPHeaders!.count > 0 {
+      let requestAdapter = LYRequestAdapter()
+      requestAdapter.AdditionalHTTPHeaders = requestHTTPHeaders!
+      self.manager.adapter = requestAdapter
+    }
     self.requestsRecord = Dictionary.init()
-    self.allStatusCodes = IndexSet.init(integersIn: Range.init(uncheckedBounds: (lower: 100, upper: 500)))
     self.processingQueue = DispatchQueue.init(label: "com.lynetwork.processing")
     self.mutex = Mutex()
   }
@@ -38,15 +43,15 @@ class LYNetworkAgent {
     let customUrlRequest: URLRequest? = request.buildCustomUrlRequest()
     if customUrlRequest != nil {
       
-      
       let afRequest = self.manager.request(customUrlRequest!)
       request.requestTask = afRequest.task
-      
-      
+    } else {
+      request.requestTask = self.sessionTaskForRequest(request)
     }
     
-    // Set request task priority
-    // !!Available on iOS 8 +
+    assert(request.requestTask != nil, "requestTask should not be nil")
+    /// Set request task priority
+    /// !!Available on iOS 8 +
     if #available(iOS 8.0, *) {
       switch request.requestPriority {
       case .High:
@@ -58,7 +63,7 @@ class LYNetworkAgent {
       }
     }
     
-    // Retain request
+    /// Retain request
     self.addRequestToRecord(request)
     request.requestTask?.resume()
   }
@@ -81,8 +86,8 @@ class LYNetworkAgent {
         self.mutex.lock()
         let request = self.requestsRecord[key]
         self.mutex.unlock()
-        // We are using non-recursive lock.
-        // Do not lock `stop`, otherwise deadlock may occur.
+        /// We are using non-recursive lock.
+        /// Do not lock `stop`, otherwise deadlock may occur.
         request?.stop()
       })
     }
@@ -104,7 +109,7 @@ class LYNetworkAgent {
     var detailUrl: String = request.requestUrl()
     let temp = URL.init(string: detailUrl)
     
-    // If detailUrl is valid URL
+    /// If detailUrl is valid URL
     if temp != nil && temp!.host != nil && temp!.scheme != nil {
       return detailUrl;
     }
@@ -131,7 +136,7 @@ class LYNetworkAgent {
       }
     }
     
-    // URL slash compability
+    /// URL slash compability
     var url = URL.init(string: baseUrl)!
     if baseUrl.characters.count > 0 && !baseUrl.hasSuffix("/") {
       url = url.appendingPathComponent("")
@@ -140,76 +145,105 @@ class LYNetworkAgent {
   }
   
   
-  
-  public func handleRequestResult(sessionTask task: URLSessionTask, _ responseObject: AnyObject, _ error: Error) {
-    self.mutex.lock()
-    let request = self.requestsRecord[NSNumber.init(integerLiteral: task.taskIdentifier)]
-    self.mutex.unlock()
+  public func sessionTaskForRequest(_ request: LYBaseRequest) -> URLSessionTask? {
+    let method: LYRequestMethod = request.requestMethod()
+    let url = self.buildRequestUrl(request)
+    let param = request.requestArgument()
     
-    // When the request is cancelled and removed from records, the underlying
-    // AFNetworking failure callback will still kicks in, resulting in a nil `request`.
-    //
-    // Here we choose to completely ignore cancelled tasks. Neither success or failure
-    // callback will be called.
-    guard request != nil else {
-      return
-    }
+    self.manager.session.configuration.timeoutIntervalForRequest = request.requestTimeoutInterval()
+    self.manager.session.configuration.allowsCellularAccess = request.allowsCellularAccess()
     
-    var requestError: Error?
-    let succeed = false
-    request!.responseObject = responseObject
-    if responseObject.isKind(of: (Data.self as! AnyClass)) {
-      request!.responseData = responseObject as? Data
-    }
-    request!.responseString = String.init(data: responseObject as! Data, encoding: LYNetworkUtils.stringEncodingWithRequest(request!))
-    
-    switch request!.responseSerializerType() {
-    case .HTTP:
-      // Default serializer. Do nothing.
-      break
-    case .JSON:
-      break
+    switch method {
+    case .GET:
+      return self.createDataTask(URLString: url, HTTPMethod: .get, parameters: param, request)
+    case .POST:
+      return self.createDataTask(URLString: url, HTTPMethod: .post, parameters: param, request)
+    case .PUT:
+      return self.createDataTask(URLString: url, HTTPMethod: .put, parameters: param, request)
+    case .DELETE:
+      return self.createDataTask(URLString: url, HTTPMethod: .delete, parameters: param, request)
+    case .PATCH:
+      return self.createDataTask(URLString: url, HTTPMethod: .patch, parameters: param, request)
     default:
-      break
-    }
-    
-    
-    if succeed {
-      self.requestDidSucceed(request!)
-    }
-    else {
-      self.requestDidFailed(request!, requestError!)
-    }
-    
-    DispatchQueue.main.async {
-      self.removeRequestFromRecord(request!)
-      request!.clearCompletionHandler()
+      return nil
     }
     
   }
   
-  public func validateResult(_ request: LYBaseRequest) -> Bool {
-    var result: Bool = request.statusCodeValidator()
+  public func createDataTask(URLString url: String,HTTPMethod method: HTTPMethod, parameters params: [String: Any]?,_ request: LYBaseRequest) -> URLSessionTask? {
+    let dataRequest: DataRequest = self.manager.request(url, method: method, parameters: params, headers: request.requestHeaderFieldValueDictionary())
+    dataRequest.validate(statusCode: request.statusCodeValidator())
     
-    if !result {
-      //  error handling
-      return result
+    var requestError: Error? = nil
+    
+    dataRequest.response(queue: processingQueue) { (response) in
+      if let error = response.error {
+        /// The error encountered while executing or validating the request.
+        print(error)
+        self.handleRequestResult(request, responseJSONObject: nil, requestError: error)
+      }
+      
+    }
+    dataRequest.responseData(queue: processingQueue) { (dataResponse) in
+      if let error = dataResponse.error {
+        /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
+        requestError = error
+        self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
+        print(error)
+      } else {
+        request.responseData = dataResponse.value
+      }
     }
     
-    let json: AnyObject? = request.responseJSONObject
+    if requestError == nil {
+      dataRequest.responseString(queue: processingQueue, encoding: LYNetworkUtils.stringEncodingWithRequest(request)) { (dataResponse) in
+        if let error = dataResponse.error {
+          /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
+          requestError = error
+          self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
+          print(error)
+        } else {
+          request.responseString = dataResponse.value
+        }
+      }
+    }
+    
+    if requestError == nil {
+      dataRequest.responseJSON(queue: processingQueue, options: JSONSerialization.ReadingOptions.allowFragments) { (dataResponse) in
+        if let error = dataResponse.error {
+          /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
+          requestError = error
+          self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
+          print(error)
+        } else {
+          request.responseJSON = dataResponse.value
+          self.handleRequestResult(request, responseJSONObject: dataResponse.value, requestError: nil)
+        }
+      }
+    }
+    return dataRequest.task
+    
+  }
+  
+  
+  public func handleRequestResult(_ request: LYBaseRequest, responseJSONObject responseJSON: Any?, requestError error: Error? = nil) {
+    error == nil ? self.requestDidSucceed(request) : self.requestDidFailed(request, error!)
+    
+    DispatchQueue.main.async {
+      self.removeRequestFromRecord(request)
+      request.clearCompletionHandler()
+    }
+  }
+  
+  public func validateResult(_ request: LYBaseRequest) -> Bool {
+    /// TODO: json is Any not AnyObject
+    let json: AnyObject? = request.responseJSON as AnyObject
     let validator: AnyObject? = request.jsonValidator()
     
     guard json != nil && validator != nil else {
       return true
     }
-    
-    result = LYNetworkUtils.validateJSON(json!, validator: validator!)
-    
-    return result
-  }
-  
-  private func request( url: URLConvertible, method: LYRequestMethod, parameters: Parameters?, encoding: ParameterEncoding, headers: HTTPHeaders) -> DataRequest {
-    
+    return LYNetworkUtils.validateJSON(json!, validator: validator!)
   }
   
   
@@ -234,6 +268,7 @@ class LYNetworkAgent {
   public func requestDidFailed(_ request: LYBaseRequest, _ error: Error) {
     request.error = error
     
+    /// TODO: handler error
     request.requestCompletePreprocessor()
     
     DispatchQueue.main.async {
@@ -251,4 +286,16 @@ class LYNetworkAgent {
     }
   }
   
+}
+
+// MARK: RequestAdapter
+fileprivate class LYRequestAdapter: RequestAdapter {
+  var AdditionalHTTPHeaders: [String: String?] = [:]
+  func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+    var request = urlRequest
+    for (key, value) in AdditionalHTTPHeaders {
+      request.setValue(value, forHTTPHeaderField: key)
+    }
+    return request
+  }
 }

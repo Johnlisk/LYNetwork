@@ -60,7 +60,7 @@ public protocol LYRequestConfiguration: class {
   func buildCustomUrlRequest() -> URLRequest?
   func cdnUrl() -> String
   func requestTimeoutInterval() -> TimeInterval
-  func requestArgument() -> AnyObject?
+  func requestArgument() -> [String: Any]?
   func requestMethod() -> LYRequestMethod
   func requestSerializerType() -> LYRequestSerializerType
   func responseSerializerType() -> LYResponseSerializerType
@@ -69,7 +69,8 @@ public protocol LYRequestConfiguration: class {
   func useCDN() -> Bool
   func allowsCellularAccess() -> Bool
   func jsonValidator() -> AnyObject?
-  func statusCodeValidator() -> Bool
+  func statusCodeValidator() -> Array<Int>
+  func cacheFileNameFilterForRequestArgument(_ argument: [String: Any]?) -> [String: Any]?
 }
 
 
@@ -101,10 +102,11 @@ open class LYBaseRequest {
       return (self.response?.allHeaderFields)!
     }
   }
+  var responseStatusValidateResult: Bool?
+		
   var responseData: Data?
   var responseString: String?
-  var responseObject: AnyObject?
-  var responseJSONObject: AnyObject?
+  var responseJSON: Any?
   var error: Error?
   
   var isCancelled: Bool {
@@ -136,12 +138,15 @@ open class LYBaseRequest {
   
   //  MARK: Request Action
   public func start() {
+    self.toggleAccessoriesWillStartCallBack()
     LYNetworkAgent.sharedAgent.addRequest(self)
   }
   
   public func stop() {
+    self.toggleAccessoriesWillStopCallBack()
     self.delegate = nil
     LYNetworkAgent.sharedAgent.cancelRequest(self)
+    self.toggleAccessoriesDidStopCallBack()
   }
   
   public func startWithCompletionHandler(success successHandler:LYRequestCompletionHandler?, failure failureHandler: LYRequestCompletionHandler?) {
@@ -155,11 +160,7 @@ open class LYBaseRequest {
     self.failureCompletionHandler = nil
   }
   
-  // MARK: Description
-  
-}
-
-extension LYBaseRequest: LYRequestConfiguration {
+  // MARK: LYRequestConfiguration
   public func requestCompletePreprocessor() {}
   public func requestCompleteFilter() {}
   public func requestFailedPreprocessor() {}
@@ -168,8 +169,8 @@ extension LYBaseRequest: LYRequestConfiguration {
   public func requestUrl() -> String { return "" }
   public func buildCustomUrlRequest() -> URLRequest? { return nil }
   public func cdnUrl() -> String { return "" }
-  public func requestTimeoutInterval() -> TimeInterval { return 60 }
-  public func requestArgument() -> AnyObject? { return nil }
+  public func requestTimeoutInterval() -> TimeInterval { return LYNetworkConfig.sharedConfig.requestTimeoutInterval }
+  public func requestArgument() -> [String: Any]? { return nil }
   public func requestMethod() -> LYRequestMethod { return .GET }
   public func requestSerializerType() -> LYRequestSerializerType { return .HTTP }
   public func responseSerializerType() -> LYResponseSerializerType { return .HTTP }
@@ -178,9 +179,14 @@ extension LYBaseRequest: LYRequestConfiguration {
   public func useCDN() -> Bool { return false }
   public func allowsCellularAccess() -> Bool { return true }
   public func jsonValidator() -> AnyObject? { return nil }
-  public func statusCodeValidator() -> Bool {
-    let statusCode: Int = self.responseStatusCode
-    return statusCode >= 200 && statusCode <= 299
+  public func statusCodeValidator() -> Array<Int> {
+    return Array(200..<300)
   }
+  public func cacheFileNameFilterForRequestArgument(_ argument: [String: Any]?) -> [String: Any]? {
+    return argument
+  }
+
+  
 }
+
 

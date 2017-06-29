@@ -16,12 +16,12 @@ public protocol LYUrlFilterProtocol: class {
 class LYNetworkConfig {
   // MARK: Properties
   static let sharedConfig: LYNetworkConfig = LYNetworkConfig()
-  
   public var baseUrl: String
   public var cdnUrl: String
   public var debugLogEnabled: Bool
   public private(set) var urlFilters: Array<LYUrlFilterProtocol>
-  public var sessionConfiguration: URLSessionConfiguration
+  public private(set) var sessionConfiguration: URLSessionConfiguration
+  /// The default value is 60 seconds.
   public var requestTimeoutInterval: TimeInterval {
     get {
       return self.sessionConfiguration.timeoutIntervalForRequest
@@ -30,13 +30,15 @@ class LYNetworkConfig {
       self.sessionConfiguration.timeoutIntervalForRequest = newValue
     }
   }
+  public var requestHTTPHeaders: [String: String?]?
   
   //  MARK: Initialization
-  init() {
+  private init() {
     self.baseUrl = ""
     self.cdnUrl = ""
     self.debugLogEnabled = false
     self.urlFilters = []
+    self.sessionConfiguration = URLSessionConfiguration()
   }
   
   //  MARK: Actions

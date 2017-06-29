@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1BD74C4B1EFC14B400E4E7EF /* LYNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */; };
 		D4F98929077C77B344FDF533 /* Pods_LYNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */; };
+		E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */; };
+		E0AC682B1F05164B00CF9FDA /* LYRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC682A1F05164B00CF9FDA /* LYRequest.swift */; };
 		E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */; };
 		E0BC6D831EFBA02600B314E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D821EFBA02600B314E9 /* ViewController.swift */; };
 		E0BC6D861EFBA02600B314E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0BC6D841EFBA02600B314E9 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 		5CC6A5E20D16EF95BDE3AC63 /* Pods-LYNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAE47610B22833F90B4CA28 /* Pods-LYNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.debug.xcconfig"; sourceTree = "<group>"; };
+		E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBatchRequest.swift; sourceTree = "<group>"; };
+		E0AC682A1F05164B00CF9FDA /* LYRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYRequest.swift; sourceTree = "<group>"; };
 		E0BC6D7D1EFBA02600B314E9 /* LYNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BC6D821EFBA02600B314E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +41,6 @@
 		E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkConfig.swift; sourceTree = "<group>"; };
 		E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkAgent.swift; sourceTree = "<group>"; };
 		E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkLock.swift; sourceTree = "<group>"; };
-		E0BC6D9D1EFCE6DF00B314E9 /* LY_Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LY_Bridging_Header.h; sourceTree = "<group>"; };
 		E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkPrivate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,12 +109,13 @@
 			isa = PBXGroup;
 			children = (
 				E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */,
+				E0AC682A1F05164B00CF9FDA /* LYRequest.swift */,
+				E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */,
 				E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */,
 				E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */,
 				1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */,
 				E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */,
 				E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */,
-				E0BC6D9D1EFCE6DF00B314E9 /* LY_Bridging_Header.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -247,7 +251,9 @@
 				E0BC6D9F1EFCFF6D00B314E9 /* LYNetworkPrivate.swift in Sources */,
 				E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */,
 				E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */,
+				E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */,
 				E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */,
+				E0AC682B1F05164B00CF9FDA /* LYRequest.swift in Sources */,
 				1BD74C4B1EFC14B400E4E7EF /* LYNetworkUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,7 +385,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = LYNetwork/Source/LY_Bridging_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -394,7 +400,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = LYNetwork/Source/LY_Bridging_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

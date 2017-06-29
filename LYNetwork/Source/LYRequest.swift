@@ -30,6 +30,9 @@ class LYRequest: LYBaseRequest {
         return cacheData
       }
     }
+    set {
+      super.responseData = newValue
+    }
   }
   
   override var responseString: String? {
@@ -40,6 +43,9 @@ class LYRequest: LYBaseRequest {
         return cacheString
       }
     }
+    set {
+      super.responseString = newValue
+    }
   }
   
   override var responseJSON: Any? {
@@ -49,6 +55,9 @@ class LYRequest: LYBaseRequest {
       } else {
         return cacheJSON
       }
+    }
+    set {
+      super.responseJSON = newValue
     }
   }
   

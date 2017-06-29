@@ -104,10 +104,10 @@ open class LYBaseRequest {
   }
   var responseStatusValidateResult: Bool?
 		
-  var responseData: Data?
-  var responseString: String?
-  var responseJSON: Any?
-  var error: Error?
+  open var responseData: Data?
+  open var responseString: String?
+  open var responseJSON: Any?
+  open var error: Error?
   
   var isCancelled: Bool {
     get {

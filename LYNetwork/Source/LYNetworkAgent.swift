@@ -23,8 +23,8 @@ class LYNetworkAgent {
   private var mutex: Mutex
   
   //  MARK: Initialization
-  init() {
-    self.config = LYNetworkConfig.sharedConfig
+  private init() {
+    self.config = LYNetworkConfig.shared
     self.manager = SessionManager.init(configuration: self.config.sessionConfiguration)
     
     let requestHTTPHeaders = self.config.requestHTTPHeaders
@@ -179,7 +179,7 @@ class LYNetworkAgent {
     dataRequest.response(queue: processingQueue) { (response) in
       if let error = response.error {
         /// The error encountered while executing or validating the request.
-        print(error)
+        lyDebugPrintLog(message: error)
         self.handleRequestResult(request, responseJSONObject: nil, requestError: error)
       }
       
@@ -189,7 +189,7 @@ class LYNetworkAgent {
         /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
         requestError = error
         self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
-        print(error)
+        lyDebugPrintLog(message: error)
       } else {
         request.responseData = dataResponse.value
       }
@@ -201,7 +201,7 @@ class LYNetworkAgent {
           /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
           requestError = error
           self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
-          print(error)
+          lyDebugPrintLog(message: error)
         } else {
           request.responseString = dataResponse.value
         }
@@ -214,7 +214,7 @@ class LYNetworkAgent {
           /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
           requestError = error
           self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
-          print(error)
+          lyDebugPrintLog(message: error)
         } else {
           request.responseJSON = dataResponse.value
           self.handleRequestResult(request, responseJSONObject: dataResponse.value, requestError: nil)

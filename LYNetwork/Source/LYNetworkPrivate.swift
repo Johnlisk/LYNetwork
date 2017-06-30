@@ -8,6 +8,15 @@
 
 import Foundation
 
+func lyDebugPrintLog<T>(message: T,
+              file: String = #file,
+              method: String = #function,
+              line: Int = #line) {
+  #if DEBUG
+    print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
+  #endif
+}
+
 //  MARK: RequestAccessory
 extension LYBaseRequest {
   public func toggleAccessoriesWillStartCallBack() {

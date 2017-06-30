@@ -169,7 +169,7 @@ open class LYBaseRequest {
   public func requestUrl() -> String { return "" }
   public func buildCustomUrlRequest() -> URLRequest? { return nil }
   public func cdnUrl() -> String { return "" }
-  public func requestTimeoutInterval() -> TimeInterval { return LYNetworkConfig.sharedConfig.requestTimeoutInterval }
+  public func requestTimeoutInterval() -> TimeInterval { return LYNetworkConfig.shared.requestTimeoutInterval }
   public func requestArgument() -> [String: Any]? { return nil }
   public func requestMethod() -> LYRequestMethod { return .GET }
   public func requestSerializerType() -> LYRequestSerializerType { return .HTTP }

@@ -12,20 +12,20 @@ fileprivate let LYRequestCacheErrorDomain = "com.ly.request.caching"
 
 class LYRequest: LYBaseRequest {
   
-  // MARK: Private Properties
+  // MARK: - Private Properties
   private static let lyrequest_cache_writing_queue: DispatchQueue = {
     return DispatchQueue.init(label: "com.linyue.lyrequest.caching", qos: DispatchQoS.background)
   }()
   
   private var cacheData: Data?
   private var cacheString: String?
-  private var cacheJSON: AnyObject?
+  private var cacheJSON: Any?
   private var cacheMetaData: LYCacheMetaData?
   private var dataFromCache: Bool = false
 		
   public var ignoreCache: Bool = true
   
-  // MARK: Override Properties
+  // MARK: - Override Properties
   override var responseData: Data? {
     get {
       if cacheData == nil {
@@ -65,7 +65,7 @@ class LYRequest: LYBaseRequest {
     }
   }
   
-  // MARK: Subclass Override
+  // MARK: - Subclass Override
   open func writeCacheAsynchronously() -> Bool {
     return true
   }
@@ -82,7 +82,7 @@ class LYRequest: LYBaseRequest {
     return 0
   }
   
-  // MARK: Public Methods
+  // MARK: - Public Methods
   public func isDataFromCache() -> Bool {
     return dataFromCache
   }
@@ -92,7 +92,7 @@ class LYRequest: LYBaseRequest {
     super.start()
   }
   
-  // MARK: Private Methods
+  // MARK: - Private Methods
   override func start() {
     guard !self.ignoreCache else {
       self.startWithoutCache()
@@ -118,6 +118,7 @@ class LYRequest: LYBaseRequest {
     }
   }
   
+  // MARK: -
   private func loadCache(_ error: Error?) -> Bool {
     // Make sure cache time in valid.
     if self.cacheTimeInSeconds() < 0 {
@@ -136,6 +137,61 @@ class LYRequest: LYBaseRequest {
     }
     
     // Check if cache is still valid.
+    if self.validateCache() {
+      return false
+    }
+    
+    // Try load cache.
+    if !self.loadCacheData() {
+      return false
+    }
+    
+    return true
+    
+  }
+  
+  private func validateCache() -> Bool {
+    guard self.cacheMetaData != nil else {
+      return false
+    }
+    // Date
+    let creationDate = self.cacheMetaData!.creationDate
+    let dutation = -creationDate!.timeIntervalSinceNow
+    
+    if dutation < 0 || dutation > Double(self.cacheTimeInSeconds()) {
+//      throw "Cache expired"
+      lyDebugPrintLog(message: "Cache expired")
+      return false
+    }
+    
+    // Version
+    let cacheVersionFileContent = self.cacheMetaData!.version
+    if cacheVersionFileContent != self.cacheVersion() {
+      lyDebugPrintLog(message: "Cache version mimatch")
+      return false
+    }
+    
+    // Sensitive data
+    let sensitiveDataString = self.cacheMetaData!.sensitiveDataString
+    let currentSensitiveDataString = self.cacheSensitiveData()?.description
+    if sensitiveDataString != nil || currentSensitiveDataString != nil {
+      // If one of the strings is nil, short-circuit evaluation will trigger
+      if sensitiveDataString!.characters.count != currentSensitiveDataString!.characters.count || sensitiveDataString! != currentSensitiveDataString! {
+        
+        return false
+      }
+    }
+    
+    // App version
+    let appVersionString = self.cacheMetaData!.appVersionString
+    let currentAppVersionString = LYNetworkUtils.appVersionString()
+    if appVersionString != nil {
+      if appVersionString!.characters.count != currentAppVersionString.characters.count || appVersionString != currentAppVersionString {
+        lyDebugPrintLog(message: "App version mismatch")
+        return false
+      }
+    }
+    return true
     
   }
   
@@ -179,10 +235,30 @@ class LYRequest: LYBaseRequest {
     let fileMgr = FileManager.default
     
     if fileMgr.fileExists(atPath: path, isDirectory: nil) {
-      // TODO
+      do {
+        let data = try Data.init(contentsOf: URL.init(fileURLWithPath: path))
+        self.cacheData = data
+        self.cacheString = String.init(data: self.cacheData!, encoding: self.cacheMetaData!.stringEncoding!)
+      } catch {
+        lyDebugPrintLog(message: "Read data from file failed, error: \(error)")
+      }
+      switch self.responseSerializerType() {
+      case .HTTP:
+        // Do nothing.
+        return true
+      case .JSON:
+        do {
+          self.cacheJSON = try JSONSerialization.jsonObject(with: self.cacheData!, options: JSONSerialization.ReadingOptions.allowFragments)
+          return true
+        } catch {
+          lyDebugPrintLog(message: "json serialized failed, error: \(error)")
+        }
+      default:
+        return true
+      }
       
     }
-    
+    return false
   }
   
   

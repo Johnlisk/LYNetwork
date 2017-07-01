@@ -358,7 +358,7 @@ class LYRequest: LYBaseRequest {
 
 fileprivate class LYCacheMetaData: NSCoding {
 
-  var version: Int?
+  var version: Int = 0
   var sensitiveDataString: String?
   var stringEncoding: String.Encoding?
   var creationDate: Date?
@@ -367,7 +367,7 @@ fileprivate class LYCacheMetaData: NSCoding {
   init() {}
   
   required init?(coder aDecoder: NSCoder) {
-    self.version = aDecoder.decodeObject(forKey: "version") as? Int
+    self.version = aDecoder.decodeObject(forKey: "version") as! Int
     self.sensitiveDataString = aDecoder.decodeObject(forKey: "sensitiveDataString") as? String
     self.creationDate = aDecoder.decodeObject(forKey: "creationDate") as? Date
     self.appVersionString = aDecoder.decodeObject(forKey: "appVersionString") as? String

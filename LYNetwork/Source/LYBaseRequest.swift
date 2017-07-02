@@ -74,7 +74,7 @@ public protocol LYRequestConfiguration: class {
 }
 
 
-public typealias LYRequestCompletionHandler = (LYBaseRequest)->(Void)
+public typealias LYBaseRequestCompletionHandler = (LYBaseRequest)->(Void)
 
 open class LYBaseRequest {
   //  MARK: Properties
@@ -130,8 +130,8 @@ open class LYBaseRequest {
   //  MARK: Request Configuration
   public var tag: Int = 0
   public var userInfo: Dictionary<String, Any>?
-  public var successCompletionHandler: LYRequestCompletionHandler?
-  public var failureCompletionHandler: LYRequestCompletionHandler?
+  public var successCompletionHandler: LYBaseRequestCompletionHandler?
+  public var failureCompletionHandler: LYBaseRequestCompletionHandler?
   public var requestAccessories: [LYRequestAccessory]?
   public weak var delegate: LYRequestDelegate?
   public var requestPriority: LYRequestPriority = .Default
@@ -149,7 +149,7 @@ open class LYBaseRequest {
     self.toggleAccessoriesDidStopCallBack()
   }
   
-  public func startWithCompletionHandler(success successHandler:LYRequestCompletionHandler?, failure failureHandler: LYRequestCompletionHandler?) {
+  public func startWithCompletionHandler(success successHandler:LYBaseRequestCompletionHandler?, failure failureHandler: LYBaseRequestCompletionHandler?) {
     self.successCompletionHandler = successHandler
     self.failureCompletionHandler = failureHandler
     self.start()

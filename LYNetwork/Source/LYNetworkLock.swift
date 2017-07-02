@@ -9,6 +9,12 @@
 import Foundation
 import Darwin
 
+public func lysynchronized(_ lock: AnyObject, f:()->()) {
+  objc_sync_enter(lock)
+  f()
+  objc_sync_exit(lock)
+}
+
 public protocol Lockable {
   func lock()
 }
@@ -87,3 +93,5 @@ extension Mutex : SignalSendable {
     return pthread_cond_signal(condition) == 0
   }
 }
+
+

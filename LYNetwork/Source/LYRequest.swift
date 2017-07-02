@@ -10,7 +10,7 @@ import Foundation
 
 fileprivate let LYRequestCacheErrorDomain = "com.ly.request.caching"
 
-class LYRequest: LYBaseRequest {
+public class LYRequest: LYBaseRequest {
   
   // MARK: - Private Properties
   private static let lyrequest_cache_writing_queue: DispatchQueue = {
@@ -26,7 +26,7 @@ class LYRequest: LYBaseRequest {
   public var ignoreCache: Bool = true
   
   // MARK: - Override Properties
-  override var responseData: Data? {
+  override public var responseData: Data? {
     get {
       if cacheData == nil {
         return super.responseData
@@ -39,7 +39,7 @@ class LYRequest: LYBaseRequest {
     }
   }
   
-  override var responseString: String? {
+  override public var responseString: String? {
     get {
       if cacheString == nil {
         return super.responseString
@@ -52,7 +52,7 @@ class LYRequest: LYBaseRequest {
     }
   }
   
-  override var responseJSON: Any? {
+  override public var responseJSON: Any? {
     get {
       if cacheJSON == nil {
         return super.responseJSON
@@ -93,7 +93,7 @@ class LYRequest: LYBaseRequest {
   }
   
   // MARK: - Private Methods
-  override func start() {
+  override public func start() {
     guard !self.ignoreCache else {
       self.startWithoutCache()
       return
@@ -346,7 +346,7 @@ class LYRequest: LYBaseRequest {
   }
   
   // MARK: Network Request Delegate
-  override func requestCompletePreprocessor() {
+  override public func requestCompletePreprocessor() {
     super.requestCompletePreprocessor()
     
     if self.writeCacheAsynchronously() {

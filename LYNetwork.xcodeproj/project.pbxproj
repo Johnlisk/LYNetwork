@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BD74C4B1EFC14B400E4E7EF /* LYNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */; };
+		1BF99D8F1F09340300F7929E /* LYBatchRequestAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D8E1F09340300F7929E /* LYBatchRequestAgent.swift */; };
 		D4F98929077C77B344FDF533 /* Pods_LYNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */; };
 		E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */; };
 		E0AC682B1F05164B00CF9FDA /* LYRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC682A1F05164B00CF9FDA /* LYRequest.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkUtils.swift; sourceTree = "<group>"; };
+		1BF99D8E1F09340300F7929E /* LYBatchRequestAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBatchRequestAgent.swift; sourceTree = "<group>"; };
 		5CC6A5E20D16EF95BDE3AC63 /* Pods-LYNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAE47610B22833F90B4CA28 /* Pods-LYNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */,
 				E0AC682A1F05164B00CF9FDA /* LYRequest.swift */,
 				E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */,
+				1BF99D8E1F09340300F7929E /* LYBatchRequestAgent.swift */,
 				E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */,
 				E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */,
 				1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */,
@@ -248,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF99D8F1F09340300F7929E /* LYBatchRequestAgent.swift in Sources */,
 				E0BC6D831EFBA02600B314E9 /* ViewController.swift in Sources */,
 				E0BC6D981EFBC68700B314E9 /* LYNetworkConfig.swift in Sources */,
 				E0BC6D9C1EFCC37200B314E9 /* LYNetworkLock.swift in Sources */,

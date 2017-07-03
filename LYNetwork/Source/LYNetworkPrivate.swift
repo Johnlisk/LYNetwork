@@ -160,14 +160,54 @@ public extension NSError {
         return "网络异常，请重试（错误代码:\(self.code))"
       case -998: // kCFURLErrorUnknown An unknown error occurred.
         return "网络异常，请重试（错误代码:\(self.code))"
-      case -999: // kCFURLErrorCancelled The connection was cancelled.
+      case -999: // kCFURLErrorCancelled/NSURLErrorCancelled The connection was cancelled.
+        return ""
+      case -1000: // kCFURLErrorBadURL/NSURLErrorBadURL
+        return ""
+      case -1001: // kCFURLErrorTimedOut/NSURLErrorTimedOut
+        return ""
+      case -1002: // kCFURLErrorUnsupportedURL/NSURLErrorUnsupportedURL
+        return ""
+      case -1003: // kCFURLErrorCannotFindHost/NSURLErrorCannotFindHost
+        return ""
+      case -1004: // kCFURLErrorCannotConnectToHost/NSURLErrorCannotConnectToHost
+        return ""
+      case -1005: // kCFURLErrorNetworkConnectionLost/NSURLErrorNetworkConnectionLost
+        return ""
+      case -1006: // kCFURLErrorDNSLookupFailed/NSURLErrorDNSLookupFailed
+        return ""
+      case -1007: // kCFURLErrorHTTPTooManyRedirects/NSURLErrorHTTPTooManyRedirects
         return ""
       case -1008..<(-999): // CFURLConnection & CFURLProtocol Errors
         return "网络异常，请重试（错误代码:\(self.code))"
-      case -1009: // kCFURLErrorNotConnectedToInternet The connection failed because the device is not connected to the internet.
+      case -1009: // kCFURLErrorNotConnectedToInternet/NSURLErrorNotConnectedToInternet The connection failed because the device is not connected to the internet.
         return "网络连接错误,请检查网络设置"
-      case -1010: // The connection was redirected to a nonexistent location
+      case -1010: // kCFURLErrorRedirectToNonExistentLocation/NSURLErrorRedirectToNonExistentLocation The connection was redirected to a nonexistent location
         return "网络异常，请重试（错误代码:\(self.code))"
+      case -1011: // kCFURLErrorBadServerResponse/NSURLErrorBadServerResponse
+        return ""
+      case -1012: // kCFURLErrorUserCancelledAuthentication/NSURLErrorUserCancelledAuthentication
+        return ""
+      case -1013: // kCFURLErrorUserAuthenticationRequired/NSURLErrorUserAuthenticationRequired
+        return ""
+      case -1014: // kCFURLErrorZeroByteResource/NSURLErrorZeroByteResource
+        return ""
+      case -1015: // kCFURLErrorCannotDecodeRawData/NSURLErrorCannotDecodeRawData
+        return ""
+      case -1016: // kCFURLErrorCannotDecodeContentData/NSURLErrorCannotDecodeContentData
+        return ""
+      case -1017: // kCFURLErrorCannotParseResponse/NSURLErrorCannotParseResponse
+        return ""
+      case -1018: // kCFURLErrorInternationalRoamingOff 国际漫游
+        return ""
+      case -1019: // kCFURLErrorCallIsActive
+        return ""
+      case -1020: // kCFURLErrorDataNotAllowed
+        return ""
+      case -1021: // kCFURLErrorRequestBodyStreamExhausted
+        return ""
+      case -1022: // kCFURLErrorAppTransportSecurityRequiresSecureConnection
+        return ""
       case -1103..<(-1099): // FTP Errors
         return "手机系统异常，请重装应用（错误代码:\(self.code))"
       case -1999..<(-1199): // SSL Errors

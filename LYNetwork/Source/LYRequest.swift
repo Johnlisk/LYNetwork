@@ -10,6 +10,10 @@ import Foundation
 
 fileprivate let LYRequestCacheErrorDomain = "com.ly.request.caching"
 
+///  YTKRequest is the base class you should inherit to create your own request class.
+///  Based on YTKBaseRequest, YTKRequest adds local caching feature. Note download
+///  request will not be cached whatsoever, because download request may involve complicated
+///  cache control policy controlled by `Cache-Control`, `Last-Modified`, etc.
 public class LYRequest: LYBaseRequest {
   
   // MARK: - Private Properties
@@ -22,7 +26,14 @@ public class LYRequest: LYBaseRequest {
   private var cacheJSON: Any?
   private var cacheMetaData: LYCacheMetaData?
   private var dataFromCache: Bool = false
-		
+  
+  ///  Whether to use cache as response or not.
+  ///  Default is NO, which means caching will take effect with specific arguments.
+  ///  Note that `cacheTimeInSeconds` default is -1. As a result cache data is not actually
+  ///  used as response unless you return a positive value in `cacheTimeInSeconds`.
+  ///
+  ///  Also note that this option does not affect storing the response, which means response will always be saved
+  ///  even `ignoreCache` is YES.
   public var ignoreCache: Bool = true
   
   // MARK: - Override Properties
@@ -159,7 +170,7 @@ public class LYRequest: LYBaseRequest {
     let dutation = -creationDate!.timeIntervalSinceNow
     
     if dutation < 0 || dutation > Double(self.cacheTimeInSeconds()) {
-//      throw "Cache expired"
+      // throw "Cache expired"
       lyDebugPrintLog(message: "Cache expired")
       return false
     }
@@ -346,7 +357,7 @@ public class LYRequest: LYBaseRequest {
   }
   
   // MARK: Network Request Delegate
-  override public func requestCompletePreprocessor() {
+  public func requestCompletePreprocessor() {
     super.requestCompletePreprocessor()
     
     if self.writeCacheAsynchronously() {

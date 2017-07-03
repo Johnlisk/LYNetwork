@@ -8,7 +8,7 @@
 
 import Foundation
 
-///  YTKChainRequestAgent handles chain request management. It keeps track of all
+///  LYChainRequestAgent handles chain request management. It keeps track of all
 ///  the chain requests.
 class LYChainRequestAgent {
   static let sharedAgent = LYChainRequestAgent()

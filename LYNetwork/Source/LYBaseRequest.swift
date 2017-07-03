@@ -39,7 +39,7 @@ public enum LYRequestPriority: Int {
   case High = 4
 }
 
-///  The YTKRequestDelegate protocol defines several optional methods you can use
+///  The LYRequestDelegate protocol defines several optional methods you can use
 ///  to receive network-related messages. All the delegate methods will be called
 ///  on the main queue.
 public protocol LYRequestDelegate: class {
@@ -49,7 +49,7 @@ public protocol LYRequestDelegate: class {
   func requestFailed(_ request: LYBaseRequest)
 }
 
-///  The YTKRequestAccessory protocol defines several optional methods that can be
+///  The LYRequestAccessory protocol defines several optional methods that can be
 ///  used to track the status of a request. Objects that conforms this protocol
 ///  ("accessories") can perform additional configurations accordingly. All the
 ///  accessory methods will be called on the main queue.
@@ -116,8 +116,8 @@ extension LYRequestConfiguration {
 
 public typealias LYBaseRequestCompletionHandler = (LYBaseRequest)->(Void)
 
-///  YTKBaseRequest is the abstract class of network request. It provides many options
-///  for constructing request. It's the base class of `YTKRequest`.
+///  LYBaseRequest is the abstract class of network request. It provides many options
+///  for constructing request. It's the base class of `LYRequest`.
 open class LYBaseRequest: LYRequestConfiguration {
   //  MARK: - Properties
   //  =========================================================

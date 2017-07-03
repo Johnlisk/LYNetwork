@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Debug Logger
 func lyDebugPrintLog<T>(message: T,
               file: String = #file,
               method: String = #function,

@@ -10,8 +10,8 @@ import Foundation
 
 fileprivate let LYRequestCacheErrorDomain = "com.ly.request.caching"
 
-///  YTKRequest is the base class you should inherit to create your own request class.
-///  Based on YTKBaseRequest, YTKRequest adds local caching feature. Note download
+///  LYRequest is the base class you should inherit to create your own request class.
+///  Based on LYBaseRequest, LYRequest adds local caching feature. Note download
 ///  request will not be cached whatsoever, because download request may involve complicated
 ///  cache control policy controlled by `Cache-Control`, `Last-Modified`, etc.
 public class LYRequest: LYBaseRequest {

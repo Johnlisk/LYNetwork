@@ -8,6 +8,8 @@
 
 import Foundation
 
+///  LYBatchRequestAgent handles batch request management. It keeps track of all
+///  the batch requests.
 public class LYBatchRequestAgent {
   static let sharedAgent: LYBatchRequestAgent = LYBatchRequestAgent()
   

@@ -8,7 +8,7 @@
 
 import Foundation
 
-///  The YTKBatchRequestDelegate protocol defines several optional methods you can use
+///  The LYBatchRequestDelegate protocol defines several optional methods you can use
 ///  to receive network-related messages. All the delegate methods will be called
 ///  on the main queue. Note the delegate methods will be called when all the requests
 ///  of batch request finishes.
@@ -26,8 +26,8 @@ public protocol LYBatchRequestDelegate: class {
 
 public typealias LYBatchRequestCompletionHandler = (LYBatchRequest)->(Void)
 
-///  YTKBatchRequest can be used to batch several YTKRequest. Note that when used inside YTKBatchRequest, a single
-///  YTKRequest will have its own callback and delegate cleared, in favor of the batch request callback.
+///  LYBatchRequest can be used to batch several LYRequest. Note that when used inside LYBatchRequest, a single
+///  LYRequest will have its own callback and delegate cleared, in favor of the batch request callback.
 public class LYBatchRequest: LYRequestDelegate {
   
   public weak var delegate: LYBatchRequestDelegate?

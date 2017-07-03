@@ -8,7 +8,7 @@
 
 import Foundation
 
-///  The YTKChainRequestDelegate protocol defines several optional methods you can use
+///  The LYChainRequestDelegate protocol defines several optional methods you can use
 ///  to receive network-related messages. All the delegate methods will be called
 ///  on the main queue. Note the delegate methods will be called when all the requests
 ///  of chain request finishes.
@@ -20,8 +20,8 @@ public protocol LYChainRequestDelegate: class {
 
 public typealias LYChainCompletionHandler = (LYChainRequest, LYBaseRequest)->(Void)
 
-///  YTKBatchRequest can be used to chain several YTKRequest so that one will only starts after another finishes.
-///  Note that when used inside YTKChainRequest, a single YTKRequest will have its own callback and delegate
+///  LYBatchRequest can be used to chain several LYRequest so that one will only starts after another finishes.
+///  Note that when used inside LYChainRequest, a single LYRequest will have its own callback and delegate
 ///  cleared, in favor of the batch request callback.
 public class LYChainRequest: LYRequestDelegate {
   

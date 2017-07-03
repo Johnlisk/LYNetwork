@@ -9,12 +9,15 @@
 import Foundation
 import Darwin
 
+// MARK: - Synchronized Methods
 public func lysynchronized(_ lock: AnyObject, f:()->()) {
   objc_sync_enter(lock)
   f()
   objc_sync_exit(lock)
 }
 
+
+// MARK: - Lock Protocols
 public protocol Lockable {
   func lock()
 }
@@ -24,7 +27,7 @@ public protocol Unlockable {
 }
 
 public protocol Waitable {
-  /// returns: whether or not to succeed in waiting a thread
+  /// whether or not to succeed in waiting a thread
   func wait() -> Bool
 }
 
@@ -33,9 +36,9 @@ public protocol SignalSendable {
   func signal() -> Bool
 }
 
-/**
- posix thread mutex wrapper class
- */
+
+// MARK: - Mutex
+/// posix thread mutex wrapper class
 public class Mutex {
   /// mutex object pointer
   fileprivate let mutex: UnsafeMutablePointer<pthread_mutex_t>
@@ -60,7 +63,6 @@ public class Mutex {
     
   }
   
-  
   // MARK: Deinitializer
   deinit {
     pthread_cond_destroy(condition);
@@ -70,6 +72,7 @@ public class Mutex {
   
 }
 
+// MARK: Lock Protocols Implementation
 extension Mutex : Lockable {
   public func lock() {
     pthread_mutex_lock(mutex)

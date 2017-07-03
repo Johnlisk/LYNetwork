@@ -28,7 +28,7 @@ public typealias LYBatchRequestCompletionHandler = (LYBatchRequest)->(Void)
 
 ///  YTKBatchRequest can be used to batch several YTKRequest. Note that when used inside YTKBatchRequest, a single
 ///  YTKRequest will have its own callback and delegate cleared, in favor of the batch request callback.
-public class LYBatchRequest: NSObject, LYRequestDelegate {
+public class LYBatchRequest: LYRequestDelegate {
   
   public weak var delegate: LYBatchRequestDelegate?
   public var successCompletionHandler: LYBatchRequestCompletionHandler?
@@ -160,3 +160,4 @@ public class LYBatchRequest: NSObject, LYRequestDelegate {
   }
   
 }
+

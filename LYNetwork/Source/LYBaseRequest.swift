@@ -77,7 +77,7 @@ public protocol LYRequestConfiguration: class {
 public typealias LYBaseRequestCompletionHandler = (LYBaseRequest)->(Void)
 
 open class LYBaseRequest {
-  //  MARK: Properties
+  //  MARK: - Properties
   //  =========================================================
   //  MARK: Request and Response Information
   open internal(set) var requestTask: URLSessionTask?
@@ -127,7 +127,7 @@ open class LYBaseRequest {
   }
   
   
-  //  MARK: Request Configuration
+  //  MARK: - Request Configuration
   public var tag: Int = 0
   public var userInfo: Dictionary<String, Any>?
   public var successCompletionHandler: LYBaseRequestCompletionHandler?
@@ -136,7 +136,7 @@ open class LYBaseRequest {
   public weak var delegate: LYRequestDelegate?
   public var requestPriority: LYRequestPriority = .Default
   
-  //  MARK: Request Action
+  //  MARK: - Request Action
   public func start() {
     self.toggleAccessoriesWillStartCallBack()
     LYNetworkAgent.sharedAgent.addRequest(self)
@@ -160,7 +160,7 @@ open class LYBaseRequest {
     self.failureCompletionHandler = nil
   }
   
-  // MARK: LYRequestConfiguration
+  // MARK: - LYRequestConfiguration
   public func requestCompletePreprocessor() {}
   public func requestCompleteFilter() {}
   public func requestFailedPreprocessor() {}

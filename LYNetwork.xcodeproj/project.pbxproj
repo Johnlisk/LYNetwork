@@ -22,6 +22,8 @@
 		E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */; };
 		E0BC6D9C1EFCC37200B314E9 /* LYNetworkLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */; };
 		E0BC6D9F1EFCFF6D00B314E9 /* LYNetworkPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */; };
+		E0BE398B1F0A00B200D12496 /* LYChainRequestAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE398A1F0A00B200D12496 /* LYChainRequestAgent.swift */; };
+		E0BE398D1F0A012100D12496 /* LYChainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE398C1F0A012100D12496 /* LYChainRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkAgent.swift; sourceTree = "<group>"; };
 		E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkLock.swift; sourceTree = "<group>"; };
 		E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkPrivate.swift; sourceTree = "<group>"; };
+		E0BE398A1F0A00B200D12496 /* LYChainRequestAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYChainRequestAgent.swift; sourceTree = "<group>"; };
+		E0BE398C1F0A012100D12496 /* LYChainRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYChainRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 				E0AC682A1F05164B00CF9FDA /* LYRequest.swift */,
 				E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */,
 				1BF99D8E1F09340300F7929E /* LYBatchRequestAgent.swift */,
+				E0BE398C1F0A012100D12496 /* LYChainRequest.swift */,
+				E0BE398A1F0A00B200D12496 /* LYChainRequestAgent.swift */,
 				E0BC6D971EFBC68700B314E9 /* LYNetworkConfig.swift */,
 				E0BC6D991EFBCBCE00B314E9 /* LYNetworkAgent.swift */,
 				1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */,
@@ -253,8 +259,10 @@
 			files = (
 				1BF99D8F1F09340300F7929E /* LYBatchRequestAgent.swift in Sources */,
 				E0BC6D831EFBA02600B314E9 /* ViewController.swift in Sources */,
+				E0BE398D1F0A012100D12496 /* LYChainRequest.swift in Sources */,
 				E0BC6D981EFBC68700B314E9 /* LYNetworkConfig.swift in Sources */,
 				E0BC6D9C1EFCC37200B314E9 /* LYNetworkLock.swift in Sources */,
+				E0BE398B1F0A00B200D12496 /* LYChainRequestAgent.swift in Sources */,
 				E0BC6D9F1EFCFF6D00B314E9 /* LYNetworkPrivate.swift in Sources */,
 				E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */,
 				E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */,

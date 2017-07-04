@@ -1,10 +1,25 @@
 //
 //  LYNetworkAgent.swift
-//  LYNetwork
 //
-//  Created by zakariyyasv on 2017/6/22.
-//  Copyright © 2017年 yangqianguan.com. All rights reserved.
+//  Copyright (c) 2017 LYNetwork https://github.com/ZakariyyaSv/LYNetwork
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 
@@ -50,8 +65,8 @@ class LYNetworkAgent {
     }
     
     assert(request.requestTask != nil, "requestTask should not be nil")
-    /// Set request task priority
-    /// !!Available on iOS 8 +
+    // Set request task priority
+    // !!Available on iOS 8 +
     if #available(iOS 8.0, *) {
       switch request.requestPriority {
       case .High:
@@ -63,7 +78,7 @@ class LYNetworkAgent {
       }
     }
     
-    /// Retain request
+    // Retain request
     self.addRequestToRecord(request)
     request.requestTask?.resume()
   }
@@ -86,8 +101,8 @@ class LYNetworkAgent {
         self.mutex.lock()
         let request = self.requestsRecord[key]
         self.mutex.unlock()
-        /// We are using non-recursive lock.
-        /// Do not lock `stop`, otherwise deadlock may occur.
+        // We are using non-recursive lock.
+        // Do not lock `stop`, otherwise deadlock may occur.
         request?.stop()
       })
     }
@@ -109,7 +124,7 @@ class LYNetworkAgent {
     var detailUrl: String = request.requestUrl()
     let temp = URL.init(string: detailUrl)
     
-    /// If detailUrl is valid URL
+    // If detailUrl is valid URL
     if temp != nil && temp!.host != nil && temp!.scheme != nil {
       return detailUrl;
     }
@@ -136,7 +151,7 @@ class LYNetworkAgent {
       }
     }
     
-    /// URL slash compability
+    // URL slash compability
     var url = URL.init(string: baseUrl)!
     if baseUrl.characters.count > 0 && !baseUrl.hasSuffix("/") {
       url = url.appendingPathComponent("")
@@ -178,7 +193,7 @@ class LYNetworkAgent {
     
     dataRequest.response(queue: processingQueue) { (response) in
       if let error = response.error {
-        /// The error encountered while executing or validating the request.
+        // The error encountered while executing or validating the request.
         lyDebugPrintLog(message: error)
         self.handleRequestResult(request, responseJSONObject: nil, requestError: error)
       }
@@ -186,7 +201,7 @@ class LYNetworkAgent {
     }
     dataRequest.responseData(queue: processingQueue) { (dataResponse) in
       if let error = dataResponse.error {
-        /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
+        // Returns the associated error value if the result if it is a failure, `nil` otherwise.
         requestError = error
         self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
         lyDebugPrintLog(message: error)
@@ -198,7 +213,7 @@ class LYNetworkAgent {
     if requestError == nil {
       dataRequest.responseString(queue: processingQueue, encoding: LYNetworkUtils.stringEncodingWithRequest(request)) { (dataResponse) in
         if let error = dataResponse.error {
-          /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
+          // Returns the associated error value if the result if it is a failure, `nil` otherwise.
           requestError = error
           self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
           lyDebugPrintLog(message: error)
@@ -207,11 +222,10 @@ class LYNetworkAgent {
         }
       }
     }
-    
-    if requestError == nil {
+    if requestError == nil && request.responseSerializerType() == .JSON {
       dataRequest.responseJSON(queue: processingQueue, options: JSONSerialization.ReadingOptions.allowFragments) { (dataResponse) in
         if let error = dataResponse.error {
-          /// Returns the associated error value if the result if it is a failure, `nil` otherwise.
+          // Returns the associated error value if the result if it is a failure, `nil` otherwise.
           requestError = error
           self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
           lyDebugPrintLog(message: error)
@@ -221,10 +235,10 @@ class LYNetworkAgent {
         }
       }
     }
+    
     return dataRequest.task
     
   }
-  
   
   public func handleRequestResult(_ request: LYBaseRequest, responseJSONObject responseJSON: Any?, requestError error: Error? = nil) {
     error == nil ? self.requestDidSucceed(request) : self.requestDidFailed(request, error!)
@@ -268,7 +282,8 @@ class LYNetworkAgent {
   public func requestDidFailed(_ request: LYBaseRequest, _ error: Error) {
     request.error = error
     
-    /// TODO: handler error
+    lyDebugPrintLog(message: "Request faied, status code = \(request.responseStatusCode), error = \(error.localizedDescription)")
+    
     request.requestCompletePreprocessor()
     
     DispatchQueue.main.async {
@@ -276,7 +291,7 @@ class LYNetworkAgent {
       request.requestCompleteFilter()
       
       if let delegate = request.delegate {
-        delegate.requestFinished(request)
+        delegate.requestFailed(request)
       }
       
       if request.failureCompletionHandler != nil {

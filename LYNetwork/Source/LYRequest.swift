@@ -1,10 +1,25 @@
 //
 //  LYRequest.swift
-//  LYNetwork
 //
-//  Created by zakariyyasv on 2017/6/29.
-//  Copyright © 2017年 yangqianguan.com. All rights reserved.
+//  Copyright (c) 2017 LYNetwork https://github.com/ZakariyyaSv/LYNetwork
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 
@@ -17,6 +32,7 @@ fileprivate let LYRequestCacheErrorDomain = "com.ly.request.caching"
 public class LYRequest: LYBaseRequest {
   
   // MARK: - Private Properties
+  // TODO: queue
   private static let lyrequest_cache_writing_queue: DispatchQueue = {
     return DispatchQueue.init(label: "com.linyue.lyrequest.caching", qos: DispatchQoS.background)
   }()
@@ -93,7 +109,9 @@ public class LYRequest: LYBaseRequest {
     return 0
   }
   
-  // MARK: - Public Methods
+  // MARK: Methods
+  // ==============================================
+  // MARK: Public Methods
   public func isDataFromCache() -> Bool {
     return dataFromCache
   }
@@ -103,7 +121,6 @@ public class LYRequest: LYBaseRequest {
     super.start()
   }
   
-  // MARK: - Private Methods
   override public func start() {
     guard !self.ignoreCache else {
       self.startWithoutCache()
@@ -129,8 +146,9 @@ public class LYRequest: LYBaseRequest {
     }
   }
   
-  // MARK: -
+  // MARK: - Cache Related Actions
   private func loadCache(_ error: Error?) -> Bool {
+    // TODO
     // Make sure cache time in valid.
     if self.cacheTimeInSeconds() < 0 {
       if error != nil {
@@ -188,7 +206,6 @@ public class LYRequest: LYBaseRequest {
     if sensitiveDataString != nil || currentSensitiveDataString != nil {
       // If one of the strings is nil, short-circuit evaluation will trigger
       if sensitiveDataString!.characters.count != currentSensitiveDataString!.characters.count || sensitiveDataString! != currentSensitiveDataString! {
-        
         return false
       }
     }
@@ -281,7 +298,7 @@ public class LYRequest: LYBaseRequest {
     self.dataFromCache = false
   }
   
-  // MARK: Cache Path
+  // MARK: - Cache Path
   private func createDirectoryIfNeeded(_ path: String) {
     let fileManager = FileManager.default
     var isDir: ObjCBool = false
@@ -298,7 +315,6 @@ public class LYRequest: LYBaseRequest {
         }
       }
     }
-    
   }
   
   private func createBaseDirectory(AtPath path: String) {
@@ -314,7 +330,7 @@ public class LYRequest: LYBaseRequest {
     let pathOfLibrary = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
     let path = NSString(string: pathOfLibrary).appendingPathComponent("LazyRequestCache")
     
-    /// Filter cache base path
+    // Filter cache base path
     let filters = LYNetworkConfig.shared.cacheDirPathFilters
     if filters.count > 0 {
       for f in filters {
@@ -356,12 +372,16 @@ public class LYRequest: LYBaseRequest {
     
   }
   
-  // MARK: Network Request Delegate
+  // MARK: - Network Request Delegate
   public func requestCompletePreprocessor() {
     super.requestCompletePreprocessor()
     
     if self.writeCacheAsynchronously() {
-      
+      LYRequest.lyrequest_cache_writing_queue.async {
+        self.saveResponseDataToCacheFile(super.responseData)
+      }
+    } else {
+      self.saveResponseDataToCacheFile(super.responseData)
     }
   }
   

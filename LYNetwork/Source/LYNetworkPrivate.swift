@@ -1,10 +1,25 @@
 //
 //  LYNetworkPrivate.swift
-//  LYNetwork
 //
-//  Created by zakariyyasv on 2017/6/23.
-//  Copyright © 2017年 yangqianguan.com. All rights reserved.
+//  Copyright (c) 2017 LYNetwork https://github.com/ZakariyyaSv/LYNetwork
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 
@@ -14,6 +29,9 @@ func lyDebugPrintLog<T>(message: T,
               method: String = #function,
               line: Int = #line) {
   #if DEBUG
+    if !LYNetworkConfig.shared.debugLogEnabled {
+      return
+    }
     print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
   #endif
 }
@@ -219,12 +237,6 @@ public extension NSError {
       case -73000..<(-71000): // CFNetServices Errors
         return "网络异常，请重试（错误代码:\(self.code))"
       default:
-        return self.localizedDescription
-      }
-    case NSCocoaErrorDomain:
-      if self.code == 3840 {
-        return "服务器正在维护，请稍候"
-      } else {
         return self.localizedDescription
       }
     default:

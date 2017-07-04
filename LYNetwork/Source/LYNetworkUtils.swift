@@ -1,10 +1,25 @@
 //
 //  LYNetworkUtils.swift
-//  LYNetwork
 //
-//  Created by 许浩男 on 2017/6/22.
-//  Copyright © 2017年 yangqianguan.com. All rights reserved.
+//  Copyright (c) 2017 LYNetwork https://github.com/ZakariyyaSv/LYNetwork
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 import Darwin
@@ -83,39 +98,6 @@ class LYNetworkUtils {
       lyDebugPrintLog(message: "error to set do not backup attribute, error = \(error)")
     }
   }
-  
-//  public class func validateResumeData(_ data: Data) -> Bool {
-//    guard data.count > 0 else {
-//      return false
-//    }
-//    
-//    var resumeDictionary: PropertyListSerialization?
-//    do {
-//      try resumeDictionary = PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainers, format: nil) as? PropertyListSerialization
-//    } catch error {
-//      print(error)
-//    }
-    
-    
-//    
-//    guard resumeDictionary != nil else {
-//      return false
-//    }
-//    
-//    // Before iOS 9
-//    if #available(iOS 9.0, *) {
-//      // After iOS 9 we can not actually detects if the cache file exists. This plist file has a somehow
-//      // complicated structue. Besides, the plist structure is different between iOS 9 and iOS 10.
-//      // We can only assume that the plist being successfully parsed means the resume data is valid.
-//      return true
-//      } else {
-//      let localFilePath: String? = resumeDictionary["NSURLSessionResumeInfoLocalPath"]
-//      guard localFilePath != nil && localFilePath!.characters.count > 0 else {
-//        return false
-//      }
-//      return FileManager.default.fileExists(atPath: localFilePath!)
-//    }
-//  }
   
   public class func stringEncodingWithRequest(_ request: LYBaseRequest) -> String.Encoding {
     var stringEncoding = String.Encoding.utf8

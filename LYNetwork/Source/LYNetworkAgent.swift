@@ -22,12 +22,16 @@
 //  THE SOFTWARE.
 
 import Foundation
-
 import Alamofire
 
+///  LYNetworkAgent is the underlying class that handles actual request generation,
+///  serialization and response handling.
 class LYNetworkAgent {
   
+  // MARK: - Properties
+  //====================================================
   // MARK: Singleton
+  ///  Get the shared agent.
   static let sharedAgent = LYNetworkAgent()
   
   // MARK: Private Properties
@@ -53,7 +57,10 @@ class LYNetworkAgent {
     self.mutex = Mutex()
   }
   
-  //  MARK: Actions
+  // MARK: - Methods
+  //=====================================================
+  //  MARK: Public Actions
+  ///  Add request to session and start it.
   public func addRequest(_ request: LYBaseRequest) {
     let customUrlRequest: URLRequest? = request.buildCustomUrlRequest()
     if customUrlRequest != nil {
@@ -83,13 +90,14 @@ class LYNetworkAgent {
     request.requestTask?.resume()
   }
   
+  ///  Cancel a request that was previously added.
   public func cancelRequest(_ request: LYBaseRequest) {
     request.requestTask?.cancel()
     self.removeRequestFromRecord(request)
     request.clearCompletionHandler()
-    
   }
   
+  ///  Cancel all requests that were previously added.
   public func cancelAllRequest(_ request: LYBaseRequest) {
     
     self.mutex.lock()
@@ -108,18 +116,7 @@ class LYNetworkAgent {
     }
   }
   
-  public func addRequestToRecord(_ request: LYBaseRequest) {
-    self.mutex.lock()
-    self.requestsRecord[NSNumber.init(integerLiteral: request.requestTask!.taskIdentifier)] = request
-    self.mutex.unlock()
-  }
-  
-  public func removeRequestFromRecord(_ request: LYBaseRequest) {
-    self.mutex.lock()
-    self.requestsRecord.removeValue(forKey: NSNumber.init(integerLiteral: request.requestTask!.taskIdentifier))
-    self.mutex.unlock()
-  }
-  
+  ///  Return the constructed URL of request.
   public func buildRequestUrl(_ request: LYBaseRequest) -> String {
     var detailUrl: String = request.requestUrl()
     let temp = URL.init(string: detailUrl)
@@ -159,8 +156,21 @@ class LYNetworkAgent {
     return URL.init(string: detailUrl, relativeTo: url)!.absoluteString
   }
   
+  // MARK: Request Record Actions
+  private func addRequestToRecord(_ request: LYBaseRequest) {
+    self.mutex.lock()
+    self.requestsRecord[NSNumber.init(integerLiteral: request.requestTask!.taskIdentifier)] = request
+    self.mutex.unlock()
+  }
   
-  public func sessionTaskForRequest(_ request: LYBaseRequest) -> URLSessionTask? {
+  private func removeRequestFromRecord(_ request: LYBaseRequest) {
+    self.mutex.lock()
+    self.requestsRecord.removeValue(forKey: NSNumber.init(integerLiteral: request.requestTask!.taskIdentifier))
+    self.mutex.unlock()
+  }
+  
+  // MARK: Session Task Related Actions
+  private func sessionTaskForRequest(_ request: LYBaseRequest) -> URLSessionTask? {
     let method: LYRequestMethod = request.requestMethod()
     let url = self.buildRequestUrl(request)
     let param = request.requestArgument()
@@ -185,7 +195,7 @@ class LYNetworkAgent {
     
   }
   
-  public func createDataTask(URLString url: String,HTTPMethod method: HTTPMethod, parameters params: [String: Any]?,_ request: LYBaseRequest) -> URLSessionTask? {
+  private func createDataTask(URLString url: String,HTTPMethod method: HTTPMethod, parameters params: [String: Any]?,_ request: LYBaseRequest) -> URLSessionTask? {
     let dataRequest: DataRequest = self.manager.request(url, method: method, parameters: params, headers: request.requestHeaderFieldValueDictionary())
     dataRequest.validate(statusCode: request.statusCodeValidator())
     
@@ -240,7 +250,8 @@ class LYNetworkAgent {
     
   }
   
-  public func handleRequestResult(_ request: LYBaseRequest, responseJSONObject responseJSON: Any?, requestError error: Error? = nil) {
+  // MARK: Response Handler
+  private func handleRequestResult(_ request: LYBaseRequest, responseJSONObject responseJSON: Any?, requestError error: Error? = nil) {
     error == nil ? self.requestDidSucceed(request) : self.requestDidFailed(request, error!)
     
     DispatchQueue.main.async {
@@ -249,7 +260,7 @@ class LYNetworkAgent {
     }
   }
   
-  public func validateResult(_ request: LYBaseRequest) -> Bool {
+  private func validateResult(_ request: LYBaseRequest) -> Bool {
     /// TODO: json is Any not AnyObject
     let json: AnyObject? = request.responseJSON as AnyObject
     let validator: AnyObject? = request.jsonValidator()
@@ -260,7 +271,7 @@ class LYNetworkAgent {
     return LYNetworkUtils.validateJSON(json!, validator: validator!)
   }
   
-  public func requestDidSucceed(_ request: LYBaseRequest) {
+  private func requestDidSucceed(_ request: LYBaseRequest) {
     request.requestCompletePreprocessor()
     
     DispatchQueue.main.async {
@@ -278,7 +289,7 @@ class LYNetworkAgent {
     }
   }
   
-  public func requestDidFailed(_ request: LYBaseRequest, _ error: Error) {
+  private func requestDidFailed(_ request: LYBaseRequest, _ error: Error) {
     request.error = error
     
     lyDebugPrintLog(message: "Request faied, status code = \(request.responseStatusCode), error = \(error.localizedDescription)")

@@ -37,16 +37,27 @@ public protocol LYCacheDirPathFilterProtocol: class {
 
 
 class LYNetworkConfig {
-  // MARK: Properties
+  // MARK: - Properties
+  //===================================================
+  // MARK: Singleton
+  ///  Return a shared config object.
   static let shared: LYNetworkConfig = LYNetworkConfig()
+  
+  // MARK: Public Properties
+  ///  Request base URL, such as "http://www.yuantiku.com". Default is empty string.
   public var baseUrl: String
+  ///  Request CDN URL. Default is empty string.
   public var cdnUrl: String
+  ///  Whether to log debug info. Default is NO;
   public var debugLogEnabled: Bool
+  ///  URL filters. See also `YTKUrlFilterProtocol`.
   public private(set) var urlFilters: Array<LYUrlFilterProtocol>
+  ///  Cache path filters. See also `YTKCacheDirPathFilterProtocol`.
   public private(set) var cacheDirPathFilters: Array<LYCacheDirPathFilterProtocol>
+  ///  SessionConfiguration will be used to initialize SessionManager. Default is nil.
   public private(set) var sessionConfiguration: URLSessionConfiguration
   
-/// The default value is 60 seconds.
+  /// Request timeout interval. The default value is 60 seconds.
   public var requestTimeoutInterval: TimeInterval {
     get {
       return self.sessionConfiguration.timeoutIntervalForRequest
@@ -57,6 +68,8 @@ class LYNetworkConfig {
   }
   public var requestHTTPHeaders: [String: String?]?
   
+  // MARK: - Methods
+  //====================================================
   //  MARK: Initialization
   private init() {
     self.baseUrl = ""
@@ -67,19 +80,23 @@ class LYNetworkConfig {
     self.sessionConfiguration = URLSessionConfiguration()
   }
   
-  //  MARK: Actions
+  //  MARK: Public Actions
+  ///  Add a new URL filter.
   public func addUrlFilter(_ filter: LYUrlFilterProtocol) {
     self.urlFilters.append(filter)
   }
   
+  ///  Remove all URL filters.
   public func clearUrlFilter() {
     self.urlFilters.removeAll()
   }
   
+  ///  Add a new cache path filter
   public func addCacheDirPathFilter(_ filter: LYCacheDirPathFilterProtocol) {
     self.cacheDirPathFilters.append(filter)
   }
   
+  ///  Clear all cache path filters.
   public func clearCacheDirPathFilters() {
     self.cacheDirPathFilters.removeAll()
   }

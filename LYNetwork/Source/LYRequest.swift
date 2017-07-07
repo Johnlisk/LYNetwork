@@ -38,22 +38,12 @@ public enum LYValidateCacheError: Error {
 }
 
 ///  LYRequest is the base class you should inherit to create your own request class.
-///  Based on LYBaseRequest, LYRequest adds local caching feature. Note download
-///  request will not be cached whatsoever, because download request may involve complicated
-///  cache control policy controlled by `Cache-Control`, `Last-Modified`, etc.
+///  Based on LYBaseRequest, LYRequest adds local caching feature.
 public class LYRequest: LYBaseRequest {
   
-  // MARK: - Private Properties
-  private static let lyrequest_cache_writing_queue: DispatchQueue = {
-    return DispatchQueue.init(label: "com.lingyue.lyrequest.caching", qos: DispatchQoS.background)
-  }()
-  
-  private var cacheData: Data?
-  private var cacheString: String?
-  private var cacheJSON: Any?
-  private var cacheMetaData: LYCacheMetaData?
-  private var dataFromCache: Bool = false
-  
+  // MARK: - Properties
+  //=====================================
+  // MARK: Public Properties
   ///  Whether to use cache as response or not.
   ///  Default is NO, which means caching will take effect with specific arguments.
   ///  Note that `cacheTimeInSeconds` default is -1. As a result cache data is not actually
@@ -63,7 +53,7 @@ public class LYRequest: LYBaseRequest {
   ///  even `ignoreCache` is YES.
   public var ignoreCache: Bool = true
   
-  // MARK: - Override Properties
+  // MARK: Override Properties
   override public var responseData: Data? {
     get {
       if cacheData == nil {
@@ -103,30 +93,48 @@ public class LYRequest: LYBaseRequest {
     }
   }
   
+  // MARK: Private Properties
+  private static let lyrequest_cache_writing_queue: DispatchQueue = {
+    return DispatchQueue.init(label: "com.lingyue.lyrequest.caching", qos: DispatchQoS.background)
+  }()
+  
+  private var cacheData: Data?
+  private var cacheString: String?
+  private var cacheJSON: Any?
+  private var cacheMetaData: LYCacheMetaData?
+  private var dataFromCache: Bool = false
+  
+  // MARK: Methods
+  // ==============================================
   // MARK: - Subclass Override
+  ///  Whether cache is asynchronously written to storage. Default is YES.
   open func writeCacheAsynchronously() -> Bool {
     return true
   }
   
+  ///  This can be used as additional identifier that tells the cache needs updating.
   open func cacheSensitiveData() -> AnyObject? {
     return nil
   }
   
+  ///  The max time duration that cache can stay in disk until it's considered expired.
+  ///  Default is -1, which means response is not actually saved as cache.
   open func cacheTimeInSeconds() -> Int {
     return -1
   }
   
+  ///  Version can be used to identify and invalidate local cache. Default is 0.
   open func cacheVersion() -> Int {
     return 0
   }
   
-  // MARK: Methods
-  // ==============================================
   // MARK: Public Methods
+  ///  Whether data is from local cache.
   public func isDataFromCache() -> Bool {
     return dataFromCache
   }
   
+  ///  Start request without reading local cache even if it exists. Use this to update local cache.
   public func startWithoutCache() {
     self.clearCacheVariables()
     super.start()
@@ -164,12 +172,11 @@ public class LYRequest: LYBaseRequest {
     }
   }
   
-  // MARK: - Cache Related Actions
-  private func loadCache() throws -> Bool {
+  ///  Manually load cache from storage.
+  public func loadCache() throws -> Bool {
     // Make sure cache time in valid.
     if self.cacheTimeInSeconds() < 0 {
       throw LYRequestCacheError.InvalidCacheTime
-      
     }
     
     // Try load metadata.
@@ -194,6 +201,31 @@ public class LYRequest: LYBaseRequest {
     
   }
   
+  ///  Save response data (probably from another request) to this request's cache location
+  public func saveResponseDataToCacheFile(_ data: Data?) {
+    if self.cacheTimeInSeconds() > 0 && !self.isDataFromCache() {
+      if data != nil {
+        // New data will always overwrite old data.
+        do {
+          try data!.write(to: URL.init(fileURLWithPath: self.cacheFilePath()))
+          
+          let metaData = LYCacheMetaData()
+          metaData.version = self.cacheVersion()
+          metaData.sensitiveDataString = self.cacheSensitiveData()?.description
+          metaData.stringEncoding = LYNetworkUtils.stringEncodingWithRequest(self)
+          metaData.creationDate = Date()
+          metaData.appVersionString = LYNetworkUtils.appVersionString()
+          if !NSKeyedArchiver.archiveRootObject(metaData, toFile: self.cacheMetadataFilePath()) {
+            lyDebugPrintLog(message: "archive metadata to file error")
+          }
+        } catch {
+          lyDebugPrintLog(message: "save cache failed")
+        }
+      }
+    }
+  }
+  
+  // MARK: Cache Related Actions
   private func validateCache() throws -> Bool {
     guard self.cacheMetaData != nil else {
       return false
@@ -233,29 +265,6 @@ public class LYRequest: LYBaseRequest {
     return true
   }
   
-  private func saveResponseDataToCacheFile(_ data: Data?) {
-    if self.cacheTimeInSeconds() > 0 && !self.isDataFromCache() {
-      if data != nil {
-        // New data will always overwrite old data.
-        do {
-          try data!.write(to: URL.init(fileURLWithPath: self.cacheFilePath()))
-          
-          let metaData = LYCacheMetaData()
-          metaData.version = self.cacheVersion()
-          metaData.sensitiveDataString = self.cacheSensitiveData()?.description
-          metaData.stringEncoding = LYNetworkUtils.stringEncodingWithRequest(self)
-          metaData.creationDate = Date()
-          metaData.appVersionString = LYNetworkUtils.appVersionString()
-          if !NSKeyedArchiver.archiveRootObject(metaData, toFile: self.cacheMetadataFilePath()) {
-            lyDebugPrintLog(message: "archive metadata to file error")
-          }
-        } catch {
-          lyDebugPrintLog(message: "save cache failed")
-        }
-      }
-    }
-  }
-  
   private func loadCacheMetadata() -> Bool {
     let path = self.cacheMetadataFilePath()
     let fileMgr = FileManager.default
@@ -292,7 +301,6 @@ public class LYRequest: LYBaseRequest {
       default:
         return true
       }
-      
     }
     return false
   }
@@ -306,7 +314,7 @@ public class LYRequest: LYBaseRequest {
     self.dataFromCache = false
   }
   
-  // MARK: - Cache Path
+  // MARK: Cache Path Methods
   private func createDirectoryIfNeeded(_ path: String) {
     let fileManager = FileManager.default
     var isDir: ObjCBool = false

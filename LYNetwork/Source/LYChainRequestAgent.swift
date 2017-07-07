@@ -26,10 +26,16 @@ import Foundation
 ///  LYChainRequestAgent handles chain request management. It keeps track of all
 ///  the chain requests.
 class LYChainRequestAgent {
+  // MARK: - Properties
+  // MARK: Singleton
+  ///  Get the shared chain request agent.
   static let sharedAgent = LYChainRequestAgent()
   
+  // MARK: Private Properties
   private var requestList: [LYChainRequest] = []
   
+  // MARK: Methods
+  // MARK: - Public Methods
   ///  Add a chain request.
   public func addChainRequest(_ request: LYChainRequest) {
     lysynchronized(self) { 

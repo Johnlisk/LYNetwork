@@ -44,7 +44,9 @@ public typealias LYBatchRequestCompletionHandler = (LYBatchRequest)->(Void)
 ///  LYBatchRequest can be used to batch several LYRequest. Note that when used inside LYBatchRequest, a single
 ///  LYRequest will have its own callback and delegate cleared, in favor of the batch request callback.
 public class LYBatchRequest: LYRequestDelegate {
-  
+  // MARK: - Properties
+  //=============================================
+  // MARK: Public Properties
   public weak var delegate: LYBatchRequestDelegate?
   public var successCompletionHandler: LYBatchRequestCompletionHandler?
   public var failureCompletionHandler: LYBatchRequestCompletionHandler?
@@ -53,9 +55,12 @@ public class LYBatchRequest: LYRequestDelegate {
   public var requestAccessories: [LYRequestAccessory]?
   public private(set) var failedRequest: LYRequest?
   
+  // MARK: Private Properties
   private var finishedCount: Int = 0
 
-  // MARK: - Initializer
+  // MARK: - Methods
+  //=============================================
+  // MARK: Initializer
   public func `init`(_ requestList: [LYRequest]) {
     self.requestList = requestList
   }
@@ -64,7 +69,7 @@ public class LYBatchRequest: LYRequestDelegate {
     self.clearRequest()
   }
   
-  // MARK: - Public Methods
+  // MARK: Public Methods
   public func setCompletionHandler(success successHandler: LYBatchRequestCompletionHandler?, failure failureHandler: LYBatchRequestCompletionHandler?) {
     self.successCompletionHandler = successHandler
     self.failureCompletionHandler = failureHandler
@@ -116,7 +121,7 @@ public class LYBatchRequest: LYRequestDelegate {
     return result
   }
   
-  // MARK: - Private Methods
+  // MARK: Private Methods
   private func clearRequest() {
     for req in self.requestList {
       req.stop()
@@ -124,7 +129,7 @@ public class LYBatchRequest: LYRequestDelegate {
     self.clearCompletionHandler()
   }
   
-  // MARK: - LYRequestDelegate
+  // MARK: LYRequestDelegate
   public func requestFinished(_ request: LYBaseRequest) {
     self.finishedCount += 1
     if self.finishedCount == self.requestList.count {
@@ -166,7 +171,7 @@ public class LYBatchRequest: LYRequestDelegate {
     
   }
   
-  // MARK: - Request Accessoies
+  // MARK: Request Accessoies
   public func addAccessory(_ accessory: LYRequestAccessory) {
     if self.requestAccessories == nil {
       self.requestAccessories = []

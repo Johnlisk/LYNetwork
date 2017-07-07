@@ -26,22 +26,31 @@ import Foundation
 ///  LYBatchRequestAgent handles batch request management. It keeps track of all
 ///  the batch requests.
 public class LYBatchRequestAgent {
+  // MARK: - Properties
+  // MARK: Singleton
+  ///  Get the shared batch request agent.
   static let sharedAgent: LYBatchRequestAgent = LYBatchRequestAgent()
-  
+ 
+  // MARK: Private Properties
   private var requestList: [LYBatchRequest]
   
+  // MARK: - Methods
+  // MARK: Public Methods
+  ///  Add a batch request.
   public func addBatchRequest(_ request: LYBatchRequest) {
     lysynchronized(self) {
       self.requestList.append(request)
     }
   }
   
+  ///  Remove a previously added batch request.
   public func removeBatchRequest(_ request: LYBatchRequest) {
     lysynchronized(self) { 
       self.requestList.remove(request)
     }
   }
   
+  // MARK: Initializer
   private init() {
     self.requestList = []
   }

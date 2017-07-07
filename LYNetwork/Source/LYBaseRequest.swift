@@ -52,6 +52,7 @@ public enum LYResponseSerializerType {
   case XMLParser
 }
 
+/// Request priority, which determines URLSessionTask priority
 public enum LYRequestPriority: Int {
   case Low = -4
   case Default = 0
@@ -59,8 +60,8 @@ public enum LYRequestPriority: Int {
 }
 
 ///  The LYRequestDelegate protocol defines several optional methods you can use
-///  to receive network-related messages. All the delegate methods will be called
-///  on the main queue.
+///  to receive network-related messages. All the delegate methods will be 
+///  called on the main queue.
 public protocol LYRequestDelegate: class {
   ///  Tell the delegate that the request has finished successfully.
   func requestFinished(_ request: LYBaseRequest)
@@ -288,7 +289,6 @@ open class LYBaseRequest: LYRequestConfiguration {
   //  MARK: - Methods
   //  =========================================================
   //  MARK: Request Action
-  
   ///  Append self to request queue and start the request.
   public func start() {
     self.toggleAccessoriesWillStartCallBack()

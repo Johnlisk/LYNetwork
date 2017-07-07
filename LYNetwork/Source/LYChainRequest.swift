@@ -30,6 +30,7 @@ import Foundation
 public protocol LYChainRequestDelegate: class {
   ///  Tell the delegate that the chain request has finished successfully.
   func chainRequestFinished(_ request: LYChainRequest)
+  ///  Tell the delegate that the chain request has failed.
   func chainRequestFailed(_ chainRequest: LYChainRequest, failedBaseRequest baseRequest: LYBaseRequest)
 }
 
@@ -42,6 +43,7 @@ public class LYChainRequest: LYRequestDelegate {
   
   
   // MARK: - Properties
+  //===============================================
   // MARK: Public Properties
   ///  The delegate object of the chain request. Default is nil.
   public weak var delegate: LYChainRequestDelegate?
@@ -59,7 +61,9 @@ public class LYChainRequest: LYRequestDelegate {
   
   private var emptyHandler: LYChainCompletionHandler
   
-  // MARK: - Public Methods
+  // MARK: - Methods
+  //================================================
+  // MARK: Public Methods
   ///  Start the chain request, adding first request in the chain to request queue.
   public func start() {
     guard self.nextRequestIndex > 0 else {
@@ -95,7 +99,7 @@ public class LYChainRequest: LYRequestDelegate {
     }
   }
   
-  // MARK: - Initializer
+  // MARK: Initializer
   init() {
     self.nextRequestIndex = 0
     self.requestList = []
@@ -105,7 +109,7 @@ public class LYChainRequest: LYRequestDelegate {
     }
   }
   
-  // MARK: - Private Methods
+  // MARK: Private Methods
   private func startNextRequest() -> Bool {
     if self.nextRequestIndex < self.requestList.count {
       let request = self.requestList[self.nextRequestIndex]
@@ -129,7 +133,7 @@ public class LYChainRequest: LYRequestDelegate {
     self.requestHandlerList.removeAll()
   }
   
-  // MARK: - LYRequestDelegate
+  // MARK: LYRequestDelegate
   public func requestFinished(_ request: LYBaseRequest) {
     let currentRequestIndex = self.nextRequestIndex - 1
     let callback = self.requestHandlerList[currentRequestIndex]
@@ -154,7 +158,7 @@ public class LYChainRequest: LYRequestDelegate {
     self.toggleAccessoriesDidStopCallBack()
   }
   
-  // MARK: - Request Accessoies
+  // MARK: Request Accessoies
   private func addAccessory(_ accessory: LYRequestAccessory) {
     if self.requestAccessories == nil {
       self.requestAccessories = []

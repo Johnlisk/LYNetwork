@@ -260,7 +260,6 @@ class LYNetworkAgent {
     return LYNetworkUtils.validateJSON(json!, validator: validator!)
   }
   
-  
   public func requestDidSucceed(_ request: LYBaseRequest) {
     request.requestCompletePreprocessor()
     

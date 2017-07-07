@@ -36,8 +36,8 @@
 		E0AC682A1F05164B00CF9FDA /* LYRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYRequest.swift; sourceTree = "<group>"; };
 		E0AC682C1F05FA4500CF9FDA /* LYNetwork-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LYNetwork-Bridging-Header.h"; sourceTree = "<group>"; };
 		E0BC6D7D1EFBA02600B314E9 /* LYNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E0BC6D821EFBA02600B314E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
+		E0BC6D821EFBA02600B314E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
 		E0BC6D851EFBA02600B314E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E0BC6D871EFBA02600B314E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0BC6D8A1EFBA02600B314E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -102,9 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				E0BC6D921EFBA06300B314E9 /* Source */,
-				E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */,
-				E0BC6D821EFBA02600B314E9 /* ViewController.swift */,
-				E0BC6D841EFBA02600B314E9 /* Main.storyboard */,
+				E0DC1FD71F0F766400FCD319 /* Demo */,
 				E0BC6D871EFBA02600B314E9 /* Assets.xcassets */,
 				E0BC6D891EFBA02600B314E9 /* LaunchScreen.storyboard */,
 				E0BC6D8C1EFBA02600B314E9 /* Info.plist */,
@@ -129,6 +127,16 @@
 				E0AC682C1F05FA4500CF9FDA /* LYNetwork-Bridging-Header.h */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		E0DC1FD71F0F766400FCD319 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */,
+				E0BC6D841EFBA02600B314E9 /* Main.storyboard */,
+				E0BC6D821EFBA02600B314E9 /* ViewController.swift */,
+			);
+			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +290,7 @@
 				E0BC6D851EFBA02600B314E9 /* Base */,
 			);
 			name = Main.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E0BC6D891EFBA02600B314E9 /* LaunchScreen.storyboard */ = {

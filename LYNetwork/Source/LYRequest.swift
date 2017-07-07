@@ -23,7 +23,19 @@
 
 import Foundation
 
-fileprivate let LYRequestCacheErrorDomain = "com.ly.request.caching"
+/// Load Cache Error Type
+public enum LYRequestCacheError: Error {
+  case InvalidCacheTime
+  case InvalidMetaData
+  case InvalidCacheData
+}
+
+/// Validate Cache Error Type
+public enum LYValidateCacheError: Error {
+  case CacheExpired
+  case CacheVersionMismatch
+  case CacheSenstiveDataMismatch
+}
 
 ///  LYRequest is the base class you should inherit to create your own request class.
 ///  Based on LYBaseRequest, LYRequest adds local caching feature. Note download
@@ -32,9 +44,8 @@ fileprivate let LYRequestCacheErrorDomain = "com.ly.request.caching"
 public class LYRequest: LYBaseRequest {
   
   // MARK: - Private Properties
-  // TODO: queue
   private static let lyrequest_cache_writing_queue: DispatchQueue = {
-    return DispatchQueue.init(label: "com.linyue.lyrequest.caching", qos: DispatchQoS.background)
+    return DispatchQueue.init(label: "com.lingyue.lyrequest.caching", qos: DispatchQoS.background)
   }()
   
   private var cacheData: Data?
@@ -127,7 +138,14 @@ public class LYRequest: LYBaseRequest {
       return
     }
     
-    guard self.loadCache(nil) else {
+    var result = false
+    do {
+      result = try self.loadCache()
+    } catch  {
+      lyDebugPrintLog(message: "load cache error \(error)")
+    }
+    
+    guard result else {
       self.startWithoutCache()
       return
     }
@@ -147,39 +165,36 @@ public class LYRequest: LYBaseRequest {
   }
   
   // MARK: - Cache Related Actions
-  private func loadCache(_ error: Error?) -> Bool {
-    // TODO
+  private func loadCache() throws -> Bool {
     // Make sure cache time in valid.
     if self.cacheTimeInSeconds() < 0 {
-      if error != nil {
-        
-      }
-      return false
+      throw LYRequestCacheError.InvalidCacheTime
+      
     }
     
     // Try load metadata.
     if !self.loadCacheMetadata() {
-      if error != nil {
-        
-      }
-      return false
+      throw LYRequestCacheError.InvalidMetaData
     }
     
     // Check if cache is still valid.
-    if self.validateCache() {
-      return false
+    do {
+      if try self.validateCache() {
+        return false
+      }
+    } catch  {
+      lyDebugPrintLog(message: "validate error: \(error)")
     }
     
     // Try load cache.
     if !self.loadCacheData() {
-      return false
+      throw LYRequestCacheError.InvalidCacheData
     }
-    
     return true
     
   }
   
-  private func validateCache() -> Bool {
+  private func validateCache() throws -> Bool {
     guard self.cacheMetaData != nil else {
       return false
     }
@@ -188,16 +203,13 @@ public class LYRequest: LYBaseRequest {
     let dutation = -creationDate!.timeIntervalSinceNow
     
     if dutation < 0 || dutation > Double(self.cacheTimeInSeconds()) {
-      // throw "Cache expired"
-      lyDebugPrintLog(message: "Cache expired")
-      return false
+      throw LYValidateCacheError.CacheExpired
     }
     
     // Version
     let cacheVersionFileContent = self.cacheMetaData!.version
     if cacheVersionFileContent != self.cacheVersion() {
-      lyDebugPrintLog(message: "Cache version mimatch")
-      return false
+      throw LYValidateCacheError.CacheSenstiveDataMismatch
     }
     
     // Sensitive data
@@ -215,12 +227,10 @@ public class LYRequest: LYBaseRequest {
     let currentAppVersionString = LYNetworkUtils.appVersionString()
     if appVersionString != nil {
       if appVersionString!.characters.count != currentAppVersionString.characters.count || appVersionString != currentAppVersionString {
-        lyDebugPrintLog(message: "App version mismatch")
-        return false
+        throw LYValidateCacheError.CacheVersionMismatch
       }
     }
     return true
-    
   }
   
   private func saveResponseDataToCacheFile(_ data: Data?) {
@@ -239,11 +249,9 @@ public class LYRequest: LYBaseRequest {
           if !NSKeyedArchiver.archiveRootObject(metaData, toFile: self.cacheMetadataFilePath()) {
             lyDebugPrintLog(message: "archive metadata to file error")
           }
-          
         } catch {
           lyDebugPrintLog(message: "save cache failed")
         }
-        
       }
     }
   }

@@ -104,9 +104,9 @@ public class LYRequest: LYBaseRequest {
   private var cacheMetaData: LYCacheMetaData?
   private var dataFromCache: Bool = false
   
-  // MARK: Methods
+  // MARK: - Methods
   // ==============================================
-  // MARK: - Subclass Override
+  // MARK: Subclass Override
   ///  Whether cache is asynchronously written to storage. Default is YES.
   open func writeCacheAsynchronously() -> Bool {
     return true

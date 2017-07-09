@@ -52,7 +52,7 @@ public enum LYResponseSerializerType {
   case XMLParser
 }
 
-/// Request priority, which determines URLSessionTask priority
+/// Request priority, which determines underlying URLSessionTask priority
 public enum LYRequestPriority: Int {
   case Low = -4
   case Default = 0
@@ -87,6 +87,8 @@ public protocol LYRequestAccessory: class {
   func requestDidStop(_ request: AnyObject)
 }
 
+///  The LYRequestConfiguration protocol defines serveral optional methods that you can
+///  use to configure the request.
 public protocol LYRequestConfiguration: class {
   ///  Called on background thread after request succeded but before switching to main thread. Note if
   ///  cache is loaded, this method WILL be called on the main thread, just like `requestCompleteFilter`.
@@ -107,14 +109,8 @@ public protocol LYRequestConfiguration: class {
   func baseUrl() -> String
   
   ///  The URL path of request. This should only contain the path part of URL, e.g., /v1/user. See alse `baseUrl`.
-  ///
-  ///  @discussion This will be concated with `baseUrl` using URL.init(relativeTo: baseUrl).
-  ///              Because of this, it is recommended that the usage should stick to rules stated above.
-  ///              Otherwise the result URL may not be correctly formed. See also `URLString:relativeToURL`
-  ///              for more information.
-  ///
-  ///              Additionaly, if `requestUrl` itself is a valid URL, it will be used as the result URL and
-  ///              `baseUrl` will be ignored.
+  ///  Additionaly, if `requestUrl` itself is a valid URL, it will be used as the result URL and
+  ///  `baseUrl` will be ignored.
   func requestUrl() -> String
   
   ///  Use this to build custom request. If this method return non-nil value, `requestUrl`, `requestTimeoutInterval`,
@@ -221,7 +217,6 @@ open class LYBaseRequest: LYRequestConfiguration {
       self.responseHeaders = newValue
     }
   }
-  var responseStatusValidateResult: Bool?
 		
   ///  The raw data representation of response. Note this value can be nil if request failed.
   open var responseData: Data?
@@ -236,6 +231,9 @@ open class LYBaseRequest: LYRequestConfiguration {
   ///  This error can be either serialization error or network error. If nothing wrong happens
   ///  this value will be nil.
   open var error: Error?
+  
+  ///  The result of validating response status code. Note this value can be nil if request failed.
+  open var responseStatusValidateResult: Bool?
   
   ///  Return cancelled state of request task.
   var isCancelled: Bool {

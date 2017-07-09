@@ -45,7 +45,7 @@ public typealias LYBatchRequestCompletionHandler = (LYBatchRequest)->(Void)
 ///  LYRequest will have its own callback and delegate cleared, in favor of the batch request callback.
 public class LYBatchRequest: LYRequestDelegate {
   // MARK: - Properties
-  //=============================================
+  //==================================================================
   // MARK: Public Properties
   public weak var delegate: LYBatchRequestDelegate?
   public var successCompletionHandler: LYBatchRequestCompletionHandler?
@@ -59,7 +59,7 @@ public class LYBatchRequest: LYRequestDelegate {
   private var finishedCount: Int = 0
 
   // MARK: - Methods
-  //=============================================
+  //===================================================================
   // MARK: Initializer
   public func `init`(_ requestList: [LYRequest]) {
     self.requestList = requestList
@@ -70,7 +70,7 @@ public class LYBatchRequest: LYRequestDelegate {
   }
   
   // MARK: Public Methods
-  public func setCompletionHandler(success successHandler: LYBatchRequestCompletionHandler?, failure failureHandler: LYBatchRequestCompletionHandler?) {
+  public func setCompletionHandler(success successHandler: LYBatchRequestCompletionHandler? = nil, failure failureHandler: LYBatchRequestCompletionHandler? = nil) {
     self.successCompletionHandler = successHandler
     self.failureCompletionHandler = failureHandler
   }
@@ -105,7 +105,7 @@ public class LYBatchRequest: LYRequestDelegate {
     LYBatchRequestAgent.sharedAgent.removeBatchRequest(self)
   }
   
-  public func startWithCompletionHandler(success successHandler: LYBatchRequestCompletionHandler?, failure failureHandler: LYBatchRequestCompletionHandler?) {
+  public func startWithCompletionHandler(success successHandler: LYBatchRequestCompletionHandler? = nil, failure failureHandler: LYBatchRequestCompletionHandler? = nil) {
     self.setCompletionHandler(success: successHandler, failure: failureHandler)
     self.start()
   }

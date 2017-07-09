@@ -43,7 +43,7 @@ public class LYChainRequest: LYRequestDelegate {
   
   
   // MARK: - Properties
-  //===============================================
+  //==========================================================
   // MARK: Public Properties
   ///  The delegate object of the chain request. Default is nil.
   public weak var delegate: LYChainRequestDelegate?
@@ -62,11 +62,11 @@ public class LYChainRequest: LYRequestDelegate {
   private var emptyHandler: LYChainCompletionHandler
   
   // MARK: - Methods
-  //================================================
+  //===========================================================
   // MARK: Public Methods
   ///  Start the chain request, adding first request in the chain to request queue.
   public func start() {
-    guard self.nextRequestIndex > 0 else {
+    guard self.nextRequestIndex == 0 else {
       lyDebugPrintLog(message: "Error! Chain request has already started.")
       return
     }
@@ -90,7 +90,7 @@ public class LYChainRequest: LYRequestDelegate {
   }
   
   ///  Add request to request chain.
-  public func addRequest(_ request: LYBaseRequest, completionHandler callback: LYChainCompletionHandler?) {
+  public func addRequest(_ request: LYBaseRequest, completionHandler callback: LYChainCompletionHandler? = nil) {
     self.requestList.append(request)
     if callback != nil {
       self.requestHandlerList.append(callback!)

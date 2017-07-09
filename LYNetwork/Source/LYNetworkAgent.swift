@@ -29,7 +29,7 @@ import Alamofire
 class LYNetworkAgent {
   
   // MARK: - Properties
-  //====================================================
+  //======================================================
   // MARK: Singleton
   ///  Get the shared agent.
   static let sharedAgent = LYNetworkAgent()
@@ -58,7 +58,7 @@ class LYNetworkAgent {
   }
   
   // MARK: - Methods
-  //=====================================================
+  //=======================================================
   //  MARK: Public Actions
   ///  Add request to session and start it.
   public func addRequest(_ request: LYBaseRequest) {
@@ -149,9 +149,16 @@ class LYNetworkAgent {
     }
     
     // URL slash compability
-    var url = URL.init(string: baseUrl)!
+    var url = URL.init(string: baseUrl)
+    guard url != nil else {
+      lyDebugPrintLog(message: "base url cannot be nil.")
+      return ""
+    }
     if baseUrl.characters.count > 0 && !baseUrl.hasSuffix("/") {
-      url = url.appendingPathComponent("")
+      url = url!.appendingPathComponent("")
+    }
+    if detailUrl.characters.count == 0 {
+      return URL.init(string: baseUrl)!.absoluteString
     }
     return URL.init(string: detailUrl, relativeTo: url)!.absoluteString
   }
@@ -197,63 +204,82 @@ class LYNetworkAgent {
   
   private func createDataTask(URLString url: String,HTTPMethod method: HTTPMethod, parameters params: [String: Any]?,_ request: LYBaseRequest) -> URLSessionTask? {
     let dataRequest: DataRequest = self.manager.request(url, method: method, parameters: params, headers: request.requestHeaderFieldValueDictionary())
-    dataRequest.validate(statusCode: request.statusCodeValidator())
     
     var requestError: Error? = nil
     
-    dataRequest.response(queue: processingQueue) { (response) in
-      if let error = response.error {
-        // The error encountered while executing or validating the request.
-        lyDebugPrintLog(message: error)
-        self.handleRequestResult(request, responseJSONObject: nil, requestError: error)
+    if request.responseSerializerType() == .JSON {
+      dataRequest.validate(statusCode: request.statusCodeValidator()).response(queue: processingQueue) { (response) in
+        if let error = response.error {
+            // TODO:
+            // request.responseStatusValidateResult = (error != AFError.responseValidationFailed(reason: AFError.ResponseValidationFailureReason.unacceptableStatusCode(code: (response.response?.statusCode)!)))
+            
+            // The error encountered while executing or validating the request.
+            lyDebugPrintLog(message: error)
+          }
+        }.responseData(queue: processingQueue) { (dataResponse) in
+          if let error = dataResponse.error {
+            // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            requestError = error
+            lyDebugPrintLog(message: error)
+          } else {
+            request.responseData = dataResponse.value
+          }
+        }.responseString(queue: processingQueue, encoding: LYNetworkUtils.stringEncodingWithRequest(request)) { (dataResponse) in
+          if let error = dataResponse.error {
+            // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            requestError = error
+            lyDebugPrintLog(message: error)
+          } else {
+            request.responseString = dataResponse.value
+          }
+        }.responseJSON(queue: processingQueue) { (dataResponse) in
+          if let error = dataResponse.error {
+            // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            requestError = error
+            self.handleRequestResult(request, requestError: requestError)
+            lyDebugPrintLog(message: error)
+          } else {
+            request.responseJSON = dataResponse.value
+            self.handleRequestResult(request, responseJSONObject: dataResponse.value)
+          }
       }
-      
-    }
-    dataRequest.responseData(queue: processingQueue) { (dataResponse) in
-      if let error = dataResponse.error {
-        // Returns the associated error value if the result if it is a failure, `nil` otherwise.
-        requestError = error
-        self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
-        lyDebugPrintLog(message: error)
-      } else {
-        request.responseData = dataResponse.value
-      }
-    }
-    
-    if requestError == nil {
-      dataRequest.responseString(queue: processingQueue, encoding: LYNetworkUtils.stringEncodingWithRequest(request)) { (dataResponse) in
-        if let error = dataResponse.error {
-          // Returns the associated error value if the result if it is a failure, `nil` otherwise.
-          requestError = error
-          self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
-          lyDebugPrintLog(message: error)
-        } else {
-          request.responseString = dataResponse.value
+
+    } else {
+      dataRequest.validate(statusCode: request.statusCodeValidator()).response(queue: processingQueue) { (response) in
+        if let error = response.error {
+            // TODO:
+            // request.responseStatusValidateResult = (error != AFError.responseValidationFailed(reason: AFError.ResponseValidationFailureReason.unacceptableStatusCode(code: (response.response?.statusCode)!)))
+            
+            // The error encountered while executing or validating the request.
+            lyDebugPrintLog(message: error)
+          }
+        }.responseData(queue: processingQueue) { (dataResponse) in
+          if let error = dataResponse.error {
+            // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            requestError = error
+            lyDebugPrintLog(message: error)
+          } else {
+            request.responseData = dataResponse.value
+          }
+        }.responseString(queue: processingQueue, encoding: LYNetworkUtils.stringEncodingWithRequest(request)) { (dataResponse) in
+          if let error = dataResponse.error {
+            // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            requestError = error
+            lyDebugPrintLog(message: error)
+            self.handleRequestResult(request, requestError: requestError)
+          } else {
+            request.responseString = dataResponse.value
+            self.handleRequestResult(request)
+          }
         }
-      }
-    }
-    if requestError == nil && request.responseSerializerType() == .JSON {
-      dataRequest.responseJSON(queue: processingQueue, options: JSONSerialization.ReadingOptions.allowFragments) { (dataResponse) in
-        if let error = dataResponse.error {
-          // Returns the associated error value if the result if it is a failure, `nil` otherwise.
-          requestError = error
-          self.handleRequestResult(request, responseJSONObject: nil, requestError: requestError)
-          lyDebugPrintLog(message: error)
-        } else {
-          request.responseJSON = dataResponse.value
-          self.handleRequestResult(request, responseJSONObject: dataResponse.value, requestError: nil)
-        }
-      }
     }
     
     return dataRequest.task
-    
   }
   
   // MARK: Response Handler
-  private func handleRequestResult(_ request: LYBaseRequest, responseJSONObject responseJSON: Any?, requestError error: Error? = nil) {
+  private func handleRequestResult(_ request: LYBaseRequest, responseJSONObject responseJSON: Any? = nil, requestError error: Error? = nil) {
     error == nil ? self.requestDidSucceed(request) : self.requestDidFailed(request, error!)
-    
     DispatchQueue.main.async {
       self.removeRequestFromRecord(request)
       request.clearCompletionHandler()

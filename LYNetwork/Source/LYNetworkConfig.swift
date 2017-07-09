@@ -77,7 +77,7 @@ class LYNetworkConfig {
     self.debugLogEnabled = false
     self.urlFilters = []
     self.cacheDirPathFilters = []
-    self.sessionConfiguration = URLSessionConfiguration()
+    self.sessionConfiguration = URLSessionConfiguration.default
   }
   
   //  MARK: Public Actions

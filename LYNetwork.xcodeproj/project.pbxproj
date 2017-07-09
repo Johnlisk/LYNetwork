@@ -9,12 +9,16 @@
 /* Begin PBXBuildFile section */
 		1BD74C4B1EFC14B400E4E7EF /* LYNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */; };
 		1BF99D8F1F09340300F7929E /* LYBatchRequestAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D8E1F09340300F7929E /* LYBatchRequestAgent.swift */; };
+		1BF99D941F0FE68900F7929E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D921F0FE68900F7929E /* AppDelegate.swift */; };
+		1BF99D951F0FE68900F7929E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D931F0FE68900F7929E /* ViewController.swift */; };
+		1BF99D971F0FE95D00F7929E /* LYUrlArgumentsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D961F0FE95D00F7929E /* LYUrlArgumentsFilter.swift */; };
+		1BF99D991F1226C700F7929E /* TestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D981F1226C700F7929E /* TestApi.swift */; };
+		1BF99D9B1F12355600F7929E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF99D9A1F12355600F7929E /* Main.storyboard */; };
+		1BF99D9E1F12505D00F7929E /* LYAnimatingRequestAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D9D1F12505D00F7929E /* LYAnimatingRequestAccessory.swift */; };
+		1BF99DA01F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D9F1F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift */; };
 		D4F98929077C77B344FDF533 /* Pods_LYNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */; };
 		E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */; };
 		E0AC682B1F05164B00CF9FDA /* LYRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC682A1F05164B00CF9FDA /* LYRequest.swift */; };
-		E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */; };
-		E0BC6D831EFBA02600B314E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D821EFBA02600B314E9 /* ViewController.swift */; };
-		E0BC6D861EFBA02600B314E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0BC6D841EFBA02600B314E9 /* Main.storyboard */; };
 		E0BC6D881EFBA02600B314E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0BC6D871EFBA02600B314E9 /* Assets.xcassets */; };
 		E0BC6D8B1EFBA02600B314E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0BC6D891EFBA02600B314E9 /* LaunchScreen.storyboard */; };
 		E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */; };
@@ -29,6 +33,13 @@
 /* Begin PBXFileReference section */
 		1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkUtils.swift; sourceTree = "<group>"; };
 		1BF99D8E1F09340300F7929E /* LYBatchRequestAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBatchRequestAgent.swift; sourceTree = "<group>"; };
+		1BF99D921F0FE68900F7929E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1BF99D931F0FE68900F7929E /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1BF99D961F0FE95D00F7929E /* LYUrlArgumentsFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYUrlArgumentsFilter.swift; sourceTree = "<group>"; };
+		1BF99D981F1226C700F7929E /* TestApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestApi.swift; sourceTree = "<group>"; };
+		1BF99D9A1F12355600F7929E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1BF99D9D1F12505D00F7929E /* LYAnimatingRequestAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYAnimatingRequestAccessory.swift; sourceTree = "<group>"; };
+		1BF99D9F1F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBaseRequestAnimatingAccessory.swift; sourceTree = "<group>"; };
 		5CC6A5E20D16EF95BDE3AC63 /* Pods-LYNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAE47610B22833F90B4CA28 /* Pods-LYNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -36,9 +47,6 @@
 		E0AC682A1F05164B00CF9FDA /* LYRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYRequest.swift; sourceTree = "<group>"; };
 		E0AC682C1F05FA4500CF9FDA /* LYNetwork-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LYNetwork-Bridging-Header.h"; sourceTree = "<group>"; };
 		E0BC6D7D1EFBA02600B314E9 /* LYNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
-		E0BC6D821EFBA02600B314E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
-		E0BC6D851EFBA02600B314E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E0BC6D871EFBA02600B314E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0BC6D8A1EFBA02600B314E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E0BC6D8C1EFBA02600B314E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +71,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BF99D911F0FE68900F7929E /* LYNetworkDemo */ = {
+			isa = PBXGroup;
+			children = (
+				1BF99D9C1F12504000F7929E /* Accessory */,
+				1BF99D921F0FE68900F7929E /* AppDelegate.swift */,
+				1BF99D931F0FE68900F7929E /* ViewController.swift */,
+				1BF99D961F0FE95D00F7929E /* LYUrlArgumentsFilter.swift */,
+				1BF99D981F1226C700F7929E /* TestApi.swift */,
+			);
+			path = LYNetworkDemo;
+			sourceTree = "<group>";
+		};
+		1BF99D9C1F12504000F7929E /* Accessory */ = {
+			isa = PBXGroup;
+			children = (
+				1BF99D9D1F12505D00F7929E /* LYAnimatingRequestAccessory.swift */,
+				1BF99D9F1F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift */,
+			);
+			path = Accessory;
+			sourceTree = "<group>";
+		};
 		C2FAAB3DA52E5619F426674E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,10 +131,11 @@
 			isa = PBXGroup;
 			children = (
 				E0BC6D921EFBA06300B314E9 /* Source */,
-				E0DC1FD71F0F766400FCD319 /* Demo */,
+				1BF99D911F0FE68900F7929E /* LYNetworkDemo */,
 				E0BC6D871EFBA02600B314E9 /* Assets.xcassets */,
 				E0BC6D891EFBA02600B314E9 /* LaunchScreen.storyboard */,
 				E0BC6D8C1EFBA02600B314E9 /* Info.plist */,
+				1BF99D9A1F12355600F7929E /* Main.storyboard */,
 			);
 			path = LYNetwork;
 			sourceTree = "<group>";
@@ -127,16 +157,6 @@
 				E0AC682C1F05FA4500CF9FDA /* LYNetwork-Bridging-Header.h */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		E0DC1FD71F0F766400FCD319 /* Demo */ = {
-			isa = PBXGroup;
-			children = (
-				E0BC6D801EFBA02600B314E9 /* AppDelegate.swift */,
-				E0BC6D841EFBA02600B314E9 /* Main.storyboard */,
-				E0BC6D821EFBA02600B314E9 /* ViewController.swift */,
-			);
-			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,9 +224,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF99D9B1F12355600F7929E /* Main.storyboard in Resources */,
 				E0BC6D8B1EFBA02600B314E9 /* LaunchScreen.storyboard in Resources */,
 				E0BC6D881EFBA02600B314E9 /* Assets.xcassets in Resources */,
-				E0BC6D861EFBA02600B314E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,15 +285,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF99D941F0FE68900F7929E /* AppDelegate.swift in Sources */,
+				1BF99D971F0FE95D00F7929E /* LYUrlArgumentsFilter.swift in Sources */,
 				1BF99D8F1F09340300F7929E /* LYBatchRequestAgent.swift in Sources */,
-				E0BC6D831EFBA02600B314E9 /* ViewController.swift in Sources */,
 				E0BE398D1F0A012100D12496 /* LYChainRequest.swift in Sources */,
 				E0BC6D981EFBC68700B314E9 /* LYNetworkConfig.swift in Sources */,
 				E0BC6D9C1EFCC37200B314E9 /* LYNetworkLock.swift in Sources */,
 				E0BE398B1F0A00B200D12496 /* LYChainRequestAgent.swift in Sources */,
 				E0BC6D9F1EFCFF6D00B314E9 /* LYNetworkPrivate.swift in Sources */,
-				E0BC6D811EFBA02600B314E9 /* AppDelegate.swift in Sources */,
+				1BF99D991F1226C700F7929E /* TestApi.swift in Sources */,
+				1BF99DA01F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift in Sources */,
 				E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */,
+				1BF99D9E1F12505D00F7929E /* LYAnimatingRequestAccessory.swift in Sources */,
+				1BF99D951F0FE68900F7929E /* ViewController.swift in Sources */,
 				E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */,
 				E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */,
 				E0AC682B1F05164B00CF9FDA /* LYRequest.swift in Sources */,
@@ -284,15 +308,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E0BC6D841EFBA02600B314E9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E0BC6D851EFBA02600B314E9 /* Base */,
-			);
-			name = Main.storyboard;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		E0BC6D891EFBA02600B314E9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

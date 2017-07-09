@@ -13,12 +13,12 @@ class LYAnimatingRequestAccessoty: LYRequestAccessory {
   public weak var animatingView: UIView?
   public var animatingText: String?
   
-  public init(_ animatingView: UIView, _ animatingText: String? = nil) {
+  public init(_ animatingView: UIView? = nil, _ animatingText: String? = nil) {
     self.animatingView = animatingView
     self.animatingText = animatingText
   }
   
-  public class func accessoryAnimating(_ animatingView: UIView, _ animatingText: String? = nil) -> LYAnimatingRequestAccessoty {
+  public class func accessoryAnimating(_ animatingView: UIView? = nil, _ animatingText: String? = nil) -> LYAnimatingRequestAccessoty {
     return LYAnimatingRequestAccessoty.init(animatingView, animatingText)
   }
   

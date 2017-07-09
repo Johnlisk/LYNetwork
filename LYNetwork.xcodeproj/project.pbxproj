@@ -16,6 +16,8 @@
 		1BF99D9B1F12355600F7929E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF99D9A1F12355600F7929E /* Main.storyboard */; };
 		1BF99D9E1F12505D00F7929E /* LYAnimatingRequestAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D9D1F12505D00F7929E /* LYAnimatingRequestAccessory.swift */; };
 		1BF99DA01F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99D9F1F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift */; };
+		1BF99DA21F12791A00F7929E /* LYBatchRequestAnimatingAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99DA11F12791A00F7929E /* LYBatchRequestAnimatingAccessory.swift */; };
+		1BF99DA41F12798700F7929E /* LYChainRequestAnimatingAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF99DA31F12798700F7929E /* LYChainRequestAnimatingAccessory.swift */; };
 		D4F98929077C77B344FDF533 /* Pods_LYNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */; };
 		E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */; };
 		E0AC682B1F05164B00CF9FDA /* LYRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AC682A1F05164B00CF9FDA /* LYRequest.swift */; };
@@ -40,6 +42,8 @@
 		1BF99D9A1F12355600F7929E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1BF99D9D1F12505D00F7929E /* LYAnimatingRequestAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYAnimatingRequestAccessory.swift; sourceTree = "<group>"; };
 		1BF99D9F1F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBaseRequestAnimatingAccessory.swift; sourceTree = "<group>"; };
+		1BF99DA11F12791A00F7929E /* LYBatchRequestAnimatingAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBatchRequestAnimatingAccessory.swift; sourceTree = "<group>"; };
+		1BF99DA31F12798700F7929E /* LYChainRequestAnimatingAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYChainRequestAnimatingAccessory.swift; sourceTree = "<group>"; };
 		5CC6A5E20D16EF95BDE3AC63 /* Pods-LYNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		C03682720F60989C1CCE5DD2 /* Pods_LYNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAAE47610B22833F90B4CA28 /* Pods-LYNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 			children = (
 				1BF99D9D1F12505D00F7929E /* LYAnimatingRequestAccessory.swift */,
 				1BF99D9F1F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift */,
+				1BF99DA11F12791A00F7929E /* LYBatchRequestAnimatingAccessory.swift */,
+				1BF99DA31F12798700F7929E /* LYChainRequestAnimatingAccessory.swift */,
 			);
 			path = Accessory;
 			sourceTree = "<group>";
@@ -297,9 +303,11 @@
 				1BF99DA01F12530900F7929E /* LYBaseRequestAnimatingAccessory.swift in Sources */,
 				E0BC6D9A1EFBCBCE00B314E9 /* LYNetworkAgent.swift in Sources */,
 				1BF99D9E1F12505D00F7929E /* LYAnimatingRequestAccessory.swift in Sources */,
+				1BF99DA41F12798700F7929E /* LYChainRequestAnimatingAccessory.swift in Sources */,
 				1BF99D951F0FE68900F7929E /* ViewController.swift in Sources */,
 				E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */,
 				E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */,
+				1BF99DA21F12791A00F7929E /* LYBatchRequestAnimatingAccessory.swift in Sources */,
 				E0AC682B1F05164B00CF9FDA /* LYRequest.swift in Sources */,
 				1BD74C4B1EFC14B400E4E7EF /* LYNetworkUtils.swift in Sources */,
 			);

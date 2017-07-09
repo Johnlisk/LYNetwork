@@ -159,7 +159,7 @@ public class LYChainRequest: LYRequestDelegate {
   }
   
   // MARK: Request Accessoies
-  private func addAccessory(_ accessory: LYRequestAccessory) {
+  public func addAccessory(_ accessory: LYRequestAccessory) {
     if self.requestAccessories == nil {
       self.requestAccessories = []
     }

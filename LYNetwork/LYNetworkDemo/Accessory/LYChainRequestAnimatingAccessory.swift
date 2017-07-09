@@ -1,15 +1,15 @@
 //
-//  LYBaseRequestAnimatingAccessory.swift
+//  LYChainRequestAnimatingAccessory.swift
 //  LYNetwork
 //
-//  Created by XuHaonan on 2017/7/9.
+//  Created by 许浩男 on 2017/7/9.
 //  Copyright © 2017年 yangqianguan.com. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-extension LYBaseRequest {
+extension LYChainRequest {
   
   public weak var animatingView: UIView? {
     get {
@@ -54,5 +54,4 @@ extension LYBaseRequest {
     }
     return nil
   }
-  
 }

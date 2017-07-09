@@ -313,6 +313,14 @@ open class LYBaseRequest: LYRequestConfiguration {
     self.successCompletionHandler = nil
     self.failureCompletionHandler = nil
   }
+  
+  ///  Convenience method to add request accessory. See also `requestAccessories`.
+  public func addAccessory(_ accessory: LYRequestAccessory) {
+    if self.requestAccessories == nil {
+      self.requestAccessories = []
+    }
+    self.requestAccessories!.append(accessory)
+  }
 }
 
 

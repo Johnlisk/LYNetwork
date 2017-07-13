@@ -20,23 +20,25 @@ class registerApi: LYRequest {
   }
   
   public func userId() -> String {
-    let response = self.responseJSON as! Dictionary<String, Any>
+    guard let response = (self.responseJSON as? Dictionary<String, Any>) else {
+      return ""
+    }
     return response["userId"] as! String
   }
   
-  func requestUrl() -> String {
+  override func requestUrl() -> String {
     return "/iphone/register"
   }
   
-  func requestMethod() -> LYRequestMethod {
+  override func requestMethod() -> LYRequestMethod {
     return .POST
   }
   
-  func responseSerializerType() -> LYResponseSerializerType {
+  override func responseSerializerType() -> LYResponseSerializerType {
     return .JSON
   }
   
-  func requestArgument() -> [String : Any]? {
+  override func requestArgument() -> [String : Any]? {
     return ["username" : self.username, "password" : self.password]
   }
   
@@ -50,11 +52,11 @@ class getUserInfoApi: LYRequest {
     super.init()
   }
   
-  func requestUrl() -> String {
+  override func requestUrl() -> String {
     return "/iphone/users"
   }
   
-  func requestArgument() -> [String : Any]? {
+  override func requestArgument() -> [String : Any]? {
     return ["userId" : self.userId]
   }
   
@@ -71,21 +73,14 @@ class getImageApi: LYRequest {
     super.init()
   }
   
-  func requestUrl() -> String {
+  override func requestUrl() -> String {
     return "/iphone/images/" + self.imageId
   }
   
-  func useCDN() -> Bool {
+  override func useCDN() -> Bool {
     return true
   }
   
-  
-  
 }
-
-
-
-
-
 
 

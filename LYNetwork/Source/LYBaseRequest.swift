@@ -199,9 +199,9 @@ open class LYBaseRequest: LYRequestConfiguration {
   }
   
   ///  The response status code.
-  public private(set) var responseStatusCode: Int {
+  public private(set) var responseStatusCode: Int? {
     get {
-      return (self.response?.statusCode)!
+      return self.response?.statusCode
     }
     set {
       self.responseStatusCode = newValue
@@ -321,10 +321,8 @@ open class LYBaseRequest: LYRequestConfiguration {
     }
     self.requestAccessories!.append(accessory)
   }
-}
-
-
-extension LYRequestConfiguration {
+  
+  // MARK: Implementation for LYRequestConfiguration Protocol
   public func requestCompletePreprocessor() {}
   public func requestCompleteFilter() {}
   public func requestFailedPreprocessor() {}
@@ -349,6 +347,8 @@ extension LYRequestConfiguration {
   public func cacheFileNameFilterForRequestArgument(_ argument: [String: Any]?) -> [String: Any]? {
     return argument
   }
+
 }
+
 
 

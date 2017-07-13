@@ -20,9 +20,11 @@ class ViewController: UIViewController, LYChainRequestDelegate {
     let chainReq = LYChainRequest()
     chainReq.addRequest(reg) { (chainRequest, baseRequest) -> (Void) in
       let register = baseRequest as! registerApi
-      print("\(register.responseStatusCode)")
-      let getUser = getUserInfoApi.init(register.userId())
-      chainRequest.addRequest(getUser)
+      print("register status code: \(String(describing: register.responseStatusCode))")
+      if register.userId().characters.count > 0 {
+        let getUser = getUserInfoApi.init(register.userId())
+        chainRequest.addRequest(getUser)
+      }
     }
     chainReq.delegate = self
     chainReq.start()

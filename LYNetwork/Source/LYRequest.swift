@@ -42,7 +42,7 @@ public enum LYValidateCacheError: Error {
 public class LYRequest: LYBaseRequest {
   
   // MARK: - Properties
-  //=====================================
+  //==========================================================
   // MARK: Public Properties
   ///  Whether to use cache as response or not.
   ///  Default is NO, which means caching will take effect with specific arguments.
@@ -105,7 +105,7 @@ public class LYRequest: LYBaseRequest {
   private var dataFromCache: Bool = false
   
   // MARK: - Methods
-  // ==============================================
+  // ================================================================
   // MARK: Subclass Override
   ///  Whether cache is asynchronously written to storage. Default is YES.
   open func writeCacheAsynchronously() -> Bool {
@@ -305,7 +305,6 @@ public class LYRequest: LYBaseRequest {
     return false
   }
   
-  
   private func clearCacheVariables() {
     self.cacheData = nil
     self.cacheJSON = nil
@@ -389,7 +388,7 @@ public class LYRequest: LYBaseRequest {
   }
   
   // MARK: - Network Request Delegate
-  public func requestCompletePreprocessor() {
+  public override func requestCompletePreprocessor() {
     super.requestCompletePreprocessor()
     
     if self.writeCacheAsynchronously() {

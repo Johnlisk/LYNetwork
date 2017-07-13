@@ -41,7 +41,7 @@ class LYNetworkAgent {
   private var processingQueue: DispatchQueue
   private var mutex: Mutex
   
-  //  MARK: Initialization
+  // MARK: Initialization
   private init() {
     self.config = LYNetworkConfig.shared
     self.manager = SessionManager.init(configuration: self.config.sessionConfiguration)
@@ -236,8 +236,8 @@ class LYNetworkAgent {
           if let error = dataResponse.error {
             // Returns the associated error value if the result if it is a failure, `nil` otherwise.
             requestError = error
-            self.handleRequestResult(request, requestError: requestError)
             lyDebugPrintLog(message: error)
+            self.handleRequestResult(request, requestError: requestError)
           } else {
             request.responseJSON = dataResponse.value
             self.handleRequestResult(request, responseJSONObject: dataResponse.value)
@@ -318,7 +318,7 @@ class LYNetworkAgent {
   private func requestDidFailed(_ request: LYBaseRequest, _ error: Error) {
     request.error = error
     
-    lyDebugPrintLog(message: "Request faied, status code = \(request.responseStatusCode), error = \(error.localizedDescription)")
+    lyDebugPrintLog(message: "Request faied, status code = \(String(describing: request.responseStatusCode)), error = \(error.localizedDescription)")
     
     request.requestCompletePreprocessor()
     

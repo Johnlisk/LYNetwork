@@ -49,7 +49,6 @@
 		DAAE47610B22833F90B4CA28 /* Pods-LYNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYNetwork/Pods-LYNetwork.debug.xcconfig"; sourceTree = "<group>"; };
 		E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBatchRequest.swift; sourceTree = "<group>"; };
 		E0AC682A1F05164B00CF9FDA /* LYRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYRequest.swift; sourceTree = "<group>"; };
-		E0AC682C1F05FA4500CF9FDA /* LYNetwork-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LYNetwork-Bridging-Header.h"; sourceTree = "<group>"; };
 		E0BC6D7D1EFBA02600B314E9 /* LYNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BC6D871EFBA02600B314E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0BC6D8A1EFBA02600B314E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -160,7 +159,6 @@
 				1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */,
 				E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */,
 				E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */,
-				E0AC682C1F05FA4500CF9FDA /* LYNetwork-Bridging-Header.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";

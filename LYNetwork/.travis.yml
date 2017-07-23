@@ -1,0 +1,20 @@
+language: objective-c
+osx_image: xcode8
+branches:
+  only:
+    - master
+env:
+  matrix:
+    - TEST_TYPE=iOS
+    - TEST_TYPE=macOS
+before_install:
+  - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
+script:
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -showsdks
+
+# Run `pod lib lint` if specified
+  - if [ $POD_LINT == "YES" ]; then
+      pod lib lint;
+    fi

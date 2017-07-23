@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/ZakariyyaSv/LYNetwork.git", :tag => "#{s.version}" }
 
-  s.source_files  = "LYNetwork/Source/*.{h,swift}"
+  s.source_files  = "LYNetwork/Source/*.{swift}"
 
   s.requires_arc = true
   s.dependency "Alamofire", "~> 4.4.0"

@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    LYNetworkConfig.shared.baseUrl = "xxxxxxxxx"
+    LYNetworkConfig.shared.baseUrl = "******"
     LYNetworkConfig.shared.debugLogEnabled = true
     return true
   }

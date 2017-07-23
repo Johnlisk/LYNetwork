@@ -210,33 +210,38 @@ class LYNetworkAgent {
     if request.responseSerializerType() == .JSON {
       dataRequest.validate(statusCode: request.statusCodeValidator()).response(queue: processingQueue) { (response) in
         if let error = response.error {
-            // TODO:
-            // request.responseStatusValidateResult = (error != AFError.responseValidationFailed(reason: AFError.ResponseValidationFailureReason.unacceptableStatusCode(code: (response.response?.statusCode)!)))
-            
+          
             // The error encountered while executing or validating the request.
             lyDebugPrintLog(message: error)
           }
         }.responseData(queue: processingQueue) { (dataResponse) in
           if let error = dataResponse.error {
             // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            if requestError == nil {
+              lyDebugPrintLog(message: error)
+            }
             requestError = error
-            lyDebugPrintLog(message: error)
+            
           } else {
             request.responseData = dataResponse.value
           }
         }.responseString(queue: processingQueue, encoding: LYNetworkUtils.stringEncodingWithRequest(request)) { (dataResponse) in
           if let error = dataResponse.error {
             // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            if requestError == nil {
+              lyDebugPrintLog(message: error)
+            }
             requestError = error
-            lyDebugPrintLog(message: error)
           } else {
             request.responseString = dataResponse.value
           }
         }.responseJSON(queue: processingQueue) { (dataResponse) in
           if let error = dataResponse.error {
             // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            if requestError == nil {
+              lyDebugPrintLog(message: error)
+            }
             requestError = error
-            lyDebugPrintLog(message: error)
             self.handleRequestResult(request, requestError: requestError)
           } else {
             request.responseJSON = dataResponse.value
@@ -247,8 +252,6 @@ class LYNetworkAgent {
     } else {
       dataRequest.validate(statusCode: request.statusCodeValidator()).response(queue: processingQueue) { (response) in
         if let error = response.error {
-            // TODO:
-            // request.responseStatusValidateResult = (error != AFError.responseValidationFailed(reason: AFError.ResponseValidationFailureReason.unacceptableStatusCode(code: (response.response?.statusCode)!)))
             
             // The error encountered while executing or validating the request.
             lyDebugPrintLog(message: error)
@@ -256,16 +259,20 @@ class LYNetworkAgent {
         }.responseData(queue: processingQueue) { (dataResponse) in
           if let error = dataResponse.error {
             // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            if requestError == nil {
+              lyDebugPrintLog(message: error)
+            }
             requestError = error
-            lyDebugPrintLog(message: error)
           } else {
             request.responseData = dataResponse.value
           }
         }.responseString(queue: processingQueue, encoding: LYNetworkUtils.stringEncodingWithRequest(request)) { (dataResponse) in
           if let error = dataResponse.error {
             // Returns the associated error value if the result if it is a failure, `nil` otherwise.
+            if requestError == nil {
+              lyDebugPrintLog(message: error)
+            }
             requestError = error
-            lyDebugPrintLog(message: error)
             self.handleRequestResult(request, requestError: requestError)
           } else {
             request.responseString = dataResponse.value
@@ -287,7 +294,7 @@ class LYNetworkAgent {
   }
   
   private func validateResult(_ request: LYBaseRequest) -> Bool {
-    /// TODO: json is Any not AnyObject
+    
     let json: AnyObject? = request.responseJSON as AnyObject
     let validator: AnyObject? = request.jsonValidator()
     

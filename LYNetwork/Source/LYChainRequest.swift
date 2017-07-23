@@ -41,9 +41,8 @@ public typealias LYChainCompletionHandler = (LYChainRequest, LYBaseRequest)->(Vo
 ///  cleared, in favor of the batch request callback.
 public class LYChainRequest: LYRequestDelegate {
   
-  
   // MARK: - Properties
-  //==========================================================
+  //===============================================================
   // MARK: Public Properties
   ///  The delegate object of the chain request. Default is nil.
   public weak var delegate: LYChainRequestDelegate?
@@ -62,7 +61,7 @@ public class LYChainRequest: LYRequestDelegate {
   private var emptyHandler: LYChainCompletionHandler
   
   // MARK: - Methods
-  //===========================================================
+  //===============================================================
   // MARK: Public Methods
   ///  Start the chain request, adding first request in the chain to request queue.
   public func start() {
@@ -115,7 +114,6 @@ public class LYChainRequest: LYRequestDelegate {
       let request = self.requestList[self.nextRequestIndex]
       self.nextRequestIndex += 1
       request.delegate = self
-      request.clearCompletionHandler()
       request.start()
       return true
     } else {
@@ -128,6 +126,7 @@ public class LYChainRequest: LYRequestDelegate {
     if currentRequestIndex < self.requestList.count {
       let request = self.requestList[currentRequestIndex]
       request.stop()
+      request.clearCompletionHandler()
     }
     self.requestList.removeAll()
     self.requestHandlerList.removeAll()

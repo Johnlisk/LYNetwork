@@ -364,9 +364,9 @@ public class LYRequest: LYBaseRequest {
     
     var requestInfo: String
     if argument == nil {
-      requestInfo = String.init(format: "Method:%ld Host:%@ Url:%@ Argument:%@", self.requestMethod() as! CVarArg, baseUrl, requestUrl, "")
+      requestInfo = String.init(format: "Method:%ld Host:%@ Url:%@ Argument:%@", self.requestMethod().rawValue, baseUrl, requestUrl, "")
     } else {
-      requestInfo = String.init(format: "Method:%ld Host:%@ Url:%@ Argument:%@", self.requestMethod() as! CVarArg, baseUrl, requestUrl, argument!)
+      requestInfo = String.init(format: "Method:%ld Host:%@ Url:%@ Argument:%@", self.requestMethod().rawValue , baseUrl, requestUrl, argument!)
     }
     return LYNetworkUtils.md5String(fromString: requestInfo)
     
@@ -402,7 +402,7 @@ public class LYRequest: LYBaseRequest {
   
 }
 
-fileprivate class LYCacheMetaData: NSCoding {
+fileprivate class LYCacheMetaData: NSObject, NSCoding {
 
   var version: Int = 0
   var sensitiveDataString: String?
@@ -410,7 +410,7 @@ fileprivate class LYCacheMetaData: NSCoding {
   var creationDate: Date?
   var appVersionString: String?
   
-  init() {}
+  override init() {}
   
   required init?(coder aDecoder: NSCoder) {
     self.version = aDecoder.decodeObject(forKey: "version") as! Int

@@ -29,7 +29,7 @@ public enum LYRequestValidationErrorType: Int {
 }
 
 ///  HTTP Request method.
-public enum LYRequestMethod {
+public enum LYRequestMethod: String {
   case GET
   case POST
   case HEAD

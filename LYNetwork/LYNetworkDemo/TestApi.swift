@@ -8,26 +8,26 @@
 
 import Foundation
 
-class registerApi: LYRequest {
+class loginApi: LYRequest {
   
-  private var username: String
+  private var phone: String
   private var password: String
   
   public init(_ username: String, _ password: String) {
-    self.username = username
+    self.phone = username
     self.password = password
     super.init()
   }
   
-  public func userId() -> String {
+  public func userIdAndticket() -> (String, String) {
     guard let response = (self.responseJSON as? Dictionary<String, Any>) else {
-      return ""
+      return ("", "")
     }
-    return response["userId"] as! String
+    return (response["userId"] as! String, response["ticket"] as! String)
   }
   
   override func requestUrl() -> String {
-    return "/iphone/register"
+    return "login"
   }
   
   override func requestMethod() -> LYRequestMethod {
@@ -39,30 +39,33 @@ class registerApi: LYRequest {
   }
   
   override func requestArgument() -> [String : Any]? {
-    return ["username" : self.username, "password" : self.password]
+    return ["phone" : self.phone, "password" : self.password]
   }
   
 }
 
 class getUserInfoApi: LYRequest {
   private var userId: String
+  private var ticket: String
   
-  public init(_ userId: String) {
+  public init(_ userId: String, _ ticket: String) {
     self.userId = userId
+    self.ticket = ticket
     super.init()
   }
   
   override func requestUrl() -> String {
-    return "/iphone/users"
+    return "get_index_info"
   }
   
   override func requestArgument() -> [String : Any]? {
-    return ["userId" : self.userId]
+    return ["userId" : self.userId, "ticket" : self.ticket]
   }
   
   override func cacheTimeInSeconds() -> Int {
     return 60 * 3
   }
+  
 }
 
 class getImageApi: LYRequest {

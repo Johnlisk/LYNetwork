@@ -1,11 +1,13 @@
 # LYNetwork
+
 ==========
 
 ![LYNetwork](https://github.com/ZakariyyaSv/LYNetwork/raw/master/screenshot/logo.jpeg)
 
+![build status](https://travis-ci.org/ZakariyyaSv/LYNetwork.svg?branch=master)
 ![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
 ![Pod version](https://img.shields.io/cocoapods/v/LYNetwork.svg?style=flat)
-![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
+[![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
 
 LYNetwork is a high level request util based on [Alamofire].
 
@@ -39,9 +41,9 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
 
 ## Requirements
 
-    | LYNetwork Version | Alamofire Version | Swift Version |  Minimum iOS Target | Note |
-    |:------------------:|:--------------------:|:--------------------:|:-------------------:|:-----|
-    | 0.x | 4.3.x & below | swift 3.0 | iOS 8 | Xcode 8+ is required. |
+| LYNetwork Version | Alamofire Version | Swift Version |  Minimum iOS Target | Note |
+|:------------------:|:--------------------:|:--------------------:|:-------------------:|:-----|
+| 0.x | 4.3.x & below | swift 3.0 | iOS 8 | Xcode 8+ is required. |
 
 LYNetwork is based on Alamofire. You can find more detail about version compability at [Alamofire].
 

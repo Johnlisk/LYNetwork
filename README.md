@@ -3,9 +3,9 @@
 
 ![LYNetwork](https://github.com/ZakariyyaSv/LYNetwork/raw/master/screenshot/logo.jpeg)
 
-[![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
-[![Pod version](https://img.shields.io/cocoapods/v/LYNetwork.svg?style=flat)
-[![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
+![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
+![Pod version](https://img.shields.io/cocoapods/v/LYNetwork.svg?style=flat)
+![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
 
 LYNetwork is a high level request util based on [Alamofire].
 

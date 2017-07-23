@@ -1,13 +1,11 @@
 # LYNetwork
 
-==========
-
 ![LYNetwork](https://github.com/ZakariyyaSv/LYNetwork/raw/master/screenshot/logo.jpeg)
 
 ![build status](https://travis-ci.org/ZakariyyaSv/LYNetwork.svg?branch=master)
 ![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
 ![Pod version](https://img.shields.io/cocoapods/v/LYNetwork.svg?style=flat)
-[![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
+[![Platform](https://img.shields.io/cocoapods/p/LYNetwork.svg?style=flat)](http://cocoadocs.org/docsets/LYNetwork)
 
 LYNetwork is a high level request util based on [Alamofire].
 

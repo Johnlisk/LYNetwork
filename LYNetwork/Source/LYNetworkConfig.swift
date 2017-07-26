@@ -66,7 +66,7 @@ class LYNetworkConfig {
       self.sessionConfiguration.timeoutIntervalForRequest = newValue
     }
   }
-  public var requestHTTPHeaders: [String: String?]?
+  public var requestHTTPHeaders: [String: String]?
   
   // MARK: - Methods
   //====================================================

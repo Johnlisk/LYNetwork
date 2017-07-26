@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LYUrlArgumentsFilter {
+class LYUrlArgumentsFilter: LYUrlFilterProtocol {
   
   private var arguments: Dictionary<String, Any>
   
@@ -17,9 +17,10 @@ class LYUrlArgumentsFilter {
     return LYUrlArgumentsFilter.init(arguments)
   }
   
-  public func filterRequest(_ request: LYBaseRequest,url originUrl: String) -> String {
-    return self.componentUrlString(originUrl, appendParameters: self.arguments)
+  func filterUrl(url originalUrl: String, _ request: LYBaseRequest) -> String {
+    return self.componentUrlString(originalUrl, appendParameters: self.arguments)
   }
+  
   
   // MARK: Private Methods
   private init(_ arguments: Dictionary<String, Any>) {
@@ -27,6 +28,7 @@ class LYUrlArgumentsFilter {
   }
   
   private func componentUrlString(_ originUrlString: String, appendParameters parameters: Dictionary<String, Any>) -> String {
+    //  add code
     return ""
   }
 }

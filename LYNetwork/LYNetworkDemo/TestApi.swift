@@ -65,7 +65,6 @@ class getUserInfoApi: LYRequest {
   override func cacheTimeInSeconds() -> Int {
     return 60 * 3
   }
-  
 }
 
 class getImageApi: LYRequest {

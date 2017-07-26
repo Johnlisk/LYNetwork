@@ -203,7 +203,16 @@ class LYNetworkAgent {
   }
   
   private func createDataTask(URLString url: String,HTTPMethod method: HTTPMethod, parameters params: [String: Any]?,_ request: LYBaseRequest) -> URLSessionTask? {
-    let dataRequest: DataRequest = self.manager.request(url, method: method, parameters: params, headers: request.requestHeaderFieldValueDictionary())
+    var requestAdditionalHeaders: [String : String]? = LYNetworkConfig.shared.requestHTTPHeaders
+    if request.requestHeaderFieldValueDictionary() != nil {
+      if requestAdditionalHeaders == nil {
+        requestAdditionalHeaders = request.requestHeaderFieldValueDictionary()
+      } else {
+        Dictionary<String, String>.appendDictElements(&requestAdditionalHeaders!, request.requestHeaderFieldValueDictionary()!)
+      }
+    }
+    
+    let dataRequest: DataRequest = self.manager.request(url, method: method, parameters: params, headers: requestAdditionalHeaders)
     
     var requestError: Error? = nil
     

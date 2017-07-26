@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    LYNetworkConfig.shared.baseUrl = "http://api.emodou.com/beg/1.0/"
+    LYNetworkConfig.shared.baseUrl = "http://api.emodou.com/"
     LYNetworkConfig.shared.debugLogEnabled = true
     return true
   }
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     let config = LYNetworkConfig.shared
     let urlFilter = LYUrlArgumentsFilter.filter(["version" : appVersion])
-    config.addUrlFilter(urlFilter as! LYUrlFilterProtocol)
+    config.addUrlFilter(urlFilter)
   }
 
 }

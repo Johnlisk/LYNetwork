@@ -96,6 +96,12 @@ class LYNetworkUtils {
   }
 }
 
-
+extension Dictionary {
+  public static func appendDictElements <K, V> (_ left: inout [K:V], _ right: [K:V]) {
+    for (k, v) in right {
+      left[k] = v
+    }
+  }
+}
 
 

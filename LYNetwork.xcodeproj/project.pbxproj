@@ -60,6 +60,7 @@
 		E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkPrivate.swift; sourceTree = "<group>"; };
 		E0BE398A1F0A00B200D12496 /* LYChainRequestAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYChainRequestAgent.swift; sourceTree = "<group>"; };
 		E0BE398C1F0A012100D12496 /* LYChainRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYChainRequest.swift; sourceTree = "<group>"; };
+		E0C635921F33462900A85000 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.map; path = CommonCrypto/module.map; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				E0C635911F33063000A85000 /* CommonCrypto */,
+				E0C635921F33462900A85000 /* module.map */,
 				E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */,
 				E0AC682A1F05164B00CF9FDA /* LYRequest.swift */,
 				E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */,

@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.10"
 
   s.source       = { :git => "https://github.com/ZakariyyaSv/LYNetwork.git", :tag => "#{s.version}" }
-
+  s.xcconfig         = { 'HEADER_SEARCH_PATHS' =>  '$(SDKROOT)/usr/include/CommonCrypto/CommonCrypto.h'
   s.source_files  = "LYNetwork/Source/*.{swift}"
 
   s.requires_arc = true

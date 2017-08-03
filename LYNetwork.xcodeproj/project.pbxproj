@@ -148,6 +148,7 @@
 		E0BC6D921EFBA06300B314E9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E0C635911F33063000A85000 /* CommonCrypto */,
 				E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */,
 				E0AC682A1F05164B00CF9FDA /* LYRequest.swift */,
 				E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */,
@@ -161,6 +162,13 @@
 				E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		E0C635911F33063000A85000 /* CommonCrypto */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CommonCrypto;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +439,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = LYNetwork/Source/CommonCrypto;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -448,6 +457,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = LYNetwork/Source/CommonCrypto;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};

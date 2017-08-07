@@ -69,5 +69,27 @@ class ViewController: UIViewController, LYRequestDelegate, LYChainRequestDelegat
 
   }
   
+  func sendBatchRequest() {
+    let a = getImageApi.init("1.jpg")
+    let b = getImageApi.init("2.jpg")
+    let c = getImageApi.init("3.jpg")
+    let d = getUserInfoApi.init("123", "123456")
+    
+    let batchRequest = LYBatchRequest.init(requestList: [a, b, c, d])
+    
+    batchRequest.startWithCompletionHandler(success: { (batchReq) -> (Void) in
+      print("success")
+      let requestList = batchRequest.requestList
+      let a = requestList[0] as! getImageApi
+      let b = requestList[1] as! getImageApi
+      let c = requestList[2] as! getImageApi
+      let d = requestList[3] as! getUserInfoApi
+      
+      //  deal with request result
+    }, failure: { (batchReq) -> (Void) in
+        print("failed")
+      })
+  }
+  
 }
 

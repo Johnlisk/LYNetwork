@@ -9,7 +9,7 @@ LYUrlFilterProtocol 接口用于实现对网络请求 URL 或参数的重写，�
 
 例如：我们需要为每个网络请求加上客户端的版本号作为参数。所以我们实现了如下一个 `LYUrlArgumentsFilter` 类，实现了 `LYUrlFilterProtocol` 协议 :
 
-```objectivec
+```swift
 class LYUrlArgumentsFilter: LYUrlFilterProtocol {
 
   private var arguments: Dictionary<String, Any>
@@ -54,7 +54,27 @@ LYBatchRequest 类：用于方便地发送批量的网络请求，LYBatchRequest
 在如下的示例中，我们发送了 4 个批量的请求，并统一处理这 4 个请求同时成功的回调。
 
 ```swift
+func sendBatchRequest() {
+    let a = getImageApi.init("1.jpg")
+    let b = getImageApi.init("2.jpg")
+    let c = getImageApi.init("3.jpg")
+    let d = getUserInfoApi.init("123", "123456")
 
+    let batchRequest = LYBatchRequest.init(requestList: [a, b, c, d])
+
+    batchRequest.startWithCompletionHandler(success: { (batchReq) -> (Void) in
+      print("success")
+      let requestList = batchRequest.requestList
+      let a = requestList[0] as! getImageApi
+      let b = requestList[1] as! getImageApi
+      let c = requestList[2] as! getImageApi
+      let d = requestList[3] as! getUserInfoApi
+
+      //  deal with request result
+    }, failure: { (batchReq) -> (Void) in
+        print("failed")
+      })
+  }
 ```
 
 ## LYChainRequest 类

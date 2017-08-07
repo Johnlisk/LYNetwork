@@ -43,7 +43,7 @@ public typealias LYBatchRequestCompletionHandler = (LYBatchRequest)->(Void)
 
 ///  LYBatchRequest can be used to batch several LYRequest. Note that when used inside LYBatchRequest, a single
 ///  LYRequest will have its own callback and delegate cleared, in favor of the batch request callback.
-public class LYBatchRequest: LYRequestDelegate {
+open class LYBatchRequest: LYRequestDelegate {
   // MARK: - Properties
   //==================================================================
   // MARK: Public Properties
@@ -61,8 +61,8 @@ public class LYBatchRequest: LYRequestDelegate {
   // MARK: - Methods
   //===================================================================
   // MARK: Initializer
-  public func `init`(_ requestList: [LYRequest]) {
-    self.requestList = requestList
+  init(requestList list: [LYRequest]) {
+    self.requestList = list
   }
   
   deinit {

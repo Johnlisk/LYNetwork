@@ -24,7 +24,7 @@ LYNetworkConfig 类有两个作用：
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    LYNetworkConfig.shared.baseUrl = "http://api.emodou.com/"
+    LYNetworkConfig.shared.baseUrl = "http://api.yangqianguan.com/"
     LYNetworkConfig.shared.debugLogEnabled = true
     return true
   }

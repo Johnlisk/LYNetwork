@@ -368,7 +368,7 @@ public class LYRequest: LYBaseRequest {
     } else {
       requestInfo = String.init(format: "Method:%ld Host:%@ Url:%@ Argument:%@", self.requestMethod().rawValue , baseUrl, requestUrl, argument!)
     }
-    return requestInfo.MD5String()!
+    return MD5(requestInfo)
     
   }
   

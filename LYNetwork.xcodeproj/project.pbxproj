@@ -30,6 +30,7 @@
 		E0BC6D9F1EFCFF6D00B314E9 /* LYNetworkPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */; };
 		E0BE398B1F0A00B200D12496 /* LYChainRequestAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE398A1F0A00B200D12496 /* LYChainRequestAgent.swift */; };
 		E0BE398D1F0A012100D12496 /* LYChainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE398C1F0A012100D12496 /* LYChainRequest.swift */; };
+		E0C6363B1F385C7200A85000 /* LYNetworkMD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C6363A1F385C7200A85000 /* LYNetworkMD5.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +61,11 @@
 		E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkPrivate.swift; sourceTree = "<group>"; };
 		E0BE398A1F0A00B200D12496 /* LYChainRequestAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYChainRequestAgent.swift; sourceTree = "<group>"; };
 		E0BE398C1F0A012100D12496 /* LYChainRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYChainRequest.swift; sourceTree = "<group>"; };
-		E0C635921F33462900A85000 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.map; path = CommonCrypto/module.map; sourceTree = "<group>"; };
+		E0C635FC1F3848D300A85000 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		E0C635FE1F3848D300A85000 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		E0C636001F3848D300A85000 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		E0C636021F3848D300A85000 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		E0C6363A1F385C7200A85000 /* LYNetworkMD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNetworkMD5.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +154,7 @@
 		E0BC6D921EFBA06300B314E9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E0C635911F33063000A85000 /* CommonCrypto */,
-				E0C635921F33462900A85000 /* module.map */,
+				E0C635FA1F3848D300A85000 /* CCommonCrypto */,
 				E0BC6D951EFBB08C00B314E9 /* LYBaseRequest.swift */,
 				E0AC682A1F05164B00CF9FDA /* LYRequest.swift */,
 				E0AC68281F04C6AF00CF9FDA /* LYBatchRequest.swift */,
@@ -162,15 +166,52 @@
 				1BD74C4A1EFC14B400E4E7EF /* LYNetworkUtils.swift */,
 				E0BC6D9E1EFCFF6D00B314E9 /* LYNetworkPrivate.swift */,
 				E0BC6D9B1EFCC37200B314E9 /* LYNetworkLock.swift */,
+				E0C6363A1F385C7200A85000 /* LYNetworkMD5.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
 		};
-		E0C635911F33063000A85000 /* CommonCrypto */ = {
+		E0C635FA1F3848D300A85000 /* CCommonCrypto */ = {
 			isa = PBXGroup;
 			children = (
+				E0C635FB1F3848D300A85000 /* iphoneos */,
+				E0C635FD1F3848D300A85000 /* iphoneos-10.0 */,
+				E0C635FF1F3848D300A85000 /* iphonesimulator */,
+				E0C636011F3848D300A85000 /* iphonesimulator-10.0 */,
 			);
-			path = CommonCrypto;
+			path = CCommonCrypto;
+			sourceTree = "<group>";
+		};
+		E0C635FB1F3848D300A85000 /* iphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				E0C635FC1F3848D300A85000 /* module.modulemap */,
+			);
+			path = iphoneos;
+			sourceTree = "<group>";
+		};
+		E0C635FD1F3848D300A85000 /* iphoneos-10.0 */ = {
+			isa = PBXGroup;
+			children = (
+				E0C635FE1F3848D300A85000 /* module.modulemap */,
+			);
+			path = "iphoneos-10.0";
+			sourceTree = "<group>";
+		};
+		E0C635FF1F3848D300A85000 /* iphonesimulator */ = {
+			isa = PBXGroup;
+			children = (
+				E0C636001F3848D300A85000 /* module.modulemap */,
+			);
+			path = iphonesimulator;
+			sourceTree = "<group>";
+		};
+		E0C636011F3848D300A85000 /* iphonesimulator-10.0 */ = {
+			isa = PBXGroup;
+			children = (
+				E0C636021F3848D300A85000 /* module.modulemap */,
+			);
+			path = "iphonesimulator-10.0";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +354,7 @@
 				1BF99D9E1F12505D00F7929E /* LYAnimatingRequestAccessory.swift in Sources */,
 				1BF99DA41F12798700F7929E /* LYChainRequestAnimatingAccessory.swift in Sources */,
 				1BF99D951F0FE68900F7929E /* ViewController.swift in Sources */,
+				E0C6363B1F385C7200A85000 /* LYNetworkMD5.swift in Sources */,
 				E0AC68291F04C6AF00CF9FDA /* LYBatchRequest.swift in Sources */,
 				E0BC6D961EFBB08C00B314E9 /* LYBaseRequest.swift in Sources */,
 				1BF99DA21F12791A00F7929E /* LYBatchRequestAnimatingAccessory.swift in Sources */,
@@ -437,11 +479,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6LPEZ2ZQ2Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LYNetwork/Source",
+				);
 				INFOPLIST_FILE = LYNetwork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_INCLUDE_PATHS = LYNetwork/Source/CommonCrypto;
+				SWIFT_INCLUDE_PATHS = "";
+				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/Source/CCommonCrypto/iphoneos";
+				"SWIFT_INCLUDE_PATHS[sdk=iphoneos10.3]" = "$(SRCROOT)/Source/CCommonCrypto/iphoneos-10.0";
+				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/Source/CCommonCrypto/iphonesimulator";
+				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator10.3]" = "$(SRCROOT)/Source/CCommonCrypto/iphonesimulator-10.0";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -455,11 +505,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6LPEZ2ZQ2Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LYNetwork/Source",
+				);
 				INFOPLIST_FILE = LYNetwork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zakariyyasv.LYNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_INCLUDE_PATHS = LYNetwork/Source/CommonCrypto;
+				SWIFT_INCLUDE_PATHS = "";
+				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/Source/CCommonCrypto/iphoneos";
+				"SWIFT_INCLUDE_PATHS[sdk=iphoneos10.3]" = "$(SRCROOT)/Source/CCommonCrypto/iphoneos-10.0";
+				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/Source/CCommonCrypto/iphonesimulator";
+				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator10.3]" = "$(SRCROOT)/Source/CCommonCrypto/iphonesimulator-10.0";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
